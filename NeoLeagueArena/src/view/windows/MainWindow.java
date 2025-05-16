@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 
 import view.modules.layout.MainContentPanel;
 import view.modules.navigation.SideBarPanel;
-import view.modules.navigation.SidebarPanel;
 
 public class MainWindow extends JFrame {
 
