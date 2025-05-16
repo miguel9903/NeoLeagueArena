@@ -4,18 +4,19 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import view.modules.layout.MainContentPanel;
+import view.modules.navigation.SideBarPanel;
 import view.modules.navigation.SidebarPanel;
 
 public class MainWindow extends JFrame {
 
-	private SidebarPanel sidebarPanel;
+	private SideBarPanel sidebarPanel;
 	private MainContentPanel mainContentPanel;
 
 	public MainWindow() {
 		setTitle("NeoLeague Arena");
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(1000, 660);
+		setSize(1000, 800);
 		setResizable(false);
 		setLocationRelativeTo(null);
 
@@ -24,14 +25,14 @@ public class MainWindow extends JFrame {
 	}
 
 	private void initializeComponents() {
-		sidebarPanel = new SidebarPanel();
+		sidebarPanel = new SideBarPanel();
 		mainContentPanel = new MainContentPanel();
 
 		add(sidebarPanel, BorderLayout.WEST);
 		add(mainContentPanel, BorderLayout.CENTER);
 	}
 
-	public SidebarPanel getSidebarPanel() {
+	public SideBarPanel getSideBarPanel() {
 		return sidebarPanel;
 	}
 

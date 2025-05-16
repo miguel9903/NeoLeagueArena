@@ -29,7 +29,26 @@ public class FormFooterPanel extends JPanel {
 		tertiaryButton.setActionCommand("TERTIARY_BUTTON");
 		add(tertiaryButton);
 	}
+	
 
+    public void removePrimaryButton() {
+        remove(primaryButton);
+        revalidate();
+        repaint();
+    }
+
+    public void removeSecondaryButton() {
+        remove(secondaryButton);
+        revalidate();
+        repaint();
+    }
+
+    public void removeTertiaryButton() {
+        remove(tertiaryButton);
+        revalidate();
+        repaint();
+    }
+    
 	public void setPrimaryButtonActionCommand(String command) {
 		primaryButton.setActionCommand(command);
 	}

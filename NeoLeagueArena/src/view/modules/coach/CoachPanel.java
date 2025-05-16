@@ -32,8 +32,5 @@ public class CoachPanel extends JPanel {
 		tabs.addTab("List", coachTablePanel);
 
 		add(tabs);
-	}
-
-
-	
+	}	
 }

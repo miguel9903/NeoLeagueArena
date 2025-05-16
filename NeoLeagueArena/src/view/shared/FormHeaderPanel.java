@@ -1,6 +1,7 @@
 package view.shared;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import utils.Colors;
 
 public class FormHeaderPanel extends JPanel {
 
@@ -30,7 +33,7 @@ public class FormHeaderPanel extends JPanel {
 		formTitleLabel.setHorizontalAlignment(SwingConstants.CENTER); 
 		formTitleLabel.setFont(new Font("Arial", Font.BOLD, 20)); 
 		formTitleLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
-
+		
 		searchPanel = new JPanel();
 		searchPanel.setLayout(new FlowLayout());
 		

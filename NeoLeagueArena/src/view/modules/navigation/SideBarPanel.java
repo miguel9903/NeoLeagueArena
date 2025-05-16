@@ -20,7 +20,7 @@ import utils.AssetPaths;
 import utils.Colors;
 import utils.ViewNames;
 
-public class SidebarPanel extends JPanel {
+public class SideBarPanel extends JPanel {
 
 	// Panels
 	private JPanel logoPanel;
@@ -38,7 +38,7 @@ public class SidebarPanel extends JPanel {
 	private JButton reportsButton;
 	private JButton settingsButton;
 
-	public SidebarPanel() {
+	public SideBarPanel() {
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(200, 600));
 		setBackground(Color.decode(Colors.DARK_SECONDARY));
@@ -71,34 +71,34 @@ public class SidebarPanel extends JPanel {
 		menuOptionsPanel.setBackground(Color.decode(Colors.DARK_SECONDARY));
 		menuOptionsPanel.setLayout(new BoxLayout(menuOptionsPanel, BoxLayout.Y_AXIS));
 
-		homeButton = createMenuOptionButton("Home", AssetPaths.HOME_ICON);
+		homeButton = createMenuOptionButton(ViewNames.HOME_VIEW, AssetPaths.HOME_ICON);
 		homeButton.setActionCommand(ViewNames.HOME_VIEW);
 		
-		tournamentsButton = createMenuOptionButton("Tournaments", AssetPaths.TOURNAMENT_ICON);
+		tournamentsButton = createMenuOptionButton(ViewNames.TOURNAMENT_VIEW, AssetPaths.TOURNAMENT_ICON);
 		tournamentsButton.setActionCommand(ViewNames.TOURNAMENT_VIEW);
 		
-		teamsButton = createMenuOptionButton("Teams", AssetPaths.TEAM_ICON);
+		teamsButton = createMenuOptionButton(ViewNames.TEAM_VIEW, AssetPaths.TEAM_ICON);
 		teamsButton.setActionCommand(ViewNames.TEAM_VIEW);
 		
-		playersButton = createMenuOptionButton("Players", AssetPaths.USER_ICON);
+		playersButton = createMenuOptionButton(ViewNames.PLAYER_VIEW, AssetPaths.USER_ICON);
 		playersButton.setActionCommand(ViewNames.PLAYER_VIEW);
 		
-		coachesButton = createMenuOptionButton("Coaches", AssetPaths.COACH_ICON);
+		coachesButton = createMenuOptionButton(ViewNames.COACH_VIEW, AssetPaths.COACH_ICON);
 		coachesButton.setActionCommand(ViewNames.COACH_VIEW);		
 		
-		adminsButton = createMenuOptionButton("Administrators", AssetPaths.ADMIN_ICON);
+		adminsButton = createMenuOptionButton(ViewNames.ADMIN_VIEW, AssetPaths.ADMIN_ICON);
 		adminsButton.setActionCommand(ViewNames.ADMIN_VIEW);
 		
-		matchesButton = createMenuOptionButton("Matches", AssetPaths.MATCH_ICON);
+		matchesButton = createMenuOptionButton(ViewNames.MATCH_VIEW, AssetPaths.MATCH_ICON);
 		matchesButton.setActionCommand(ViewNames.MATCH_VIEW);
 		
-		gamesButton = createMenuOptionButton("Games", AssetPaths.GAME_ICON);
+		gamesButton = createMenuOptionButton(ViewNames.GAME_VIEW, AssetPaths.GAME_ICON);
 		gamesButton.setActionCommand(ViewNames.GAME_VIEW);
 		
-		reportsButton = createMenuOptionButton("Reports", AssetPaths.REPORT_ICON);
+		reportsButton = createMenuOptionButton(ViewNames.REPORT_VIEW, AssetPaths.REPORT_ICON);
 		reportsButton.setActionCommand(ViewNames.REPORT_VIEW);
 		
-		settingsButton = createMenuOptionButton("Settings", AssetPaths.SETTINGS_ICON);
+		settingsButton = createMenuOptionButton(ViewNames.SETTINGS_VIEW, AssetPaths.SETTINGS_ICON);
 		settingsButton.setActionCommand(ViewNames.SETTINGS_VIEW);
 
 		menuOptionsPanel.add(Box.createVerticalStrut(10));
