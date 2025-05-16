@@ -3,43 +3,86 @@ package model.persistence.dao;
 import java.util.ArrayList;
 
 import model.Tournament;
+import model.persistence.FileManager;
+import utils.PersistencePaths;
 
 public class TournamentDAO implements InterfaceDAO<Tournament> {
 
-	@Override
-	public ArrayList<Tournament> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private ArrayList<Tournament> tournaments;
+    private FileManager<Tournament> fileManager;
 
-	@Override
-	public String getAllAsString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public TournamentDAO() {
+        fileManager = new FileManager<>(PersistencePaths.TOURNAMENTS_FILE);
+        tournaments = new ArrayList<>();
+        loadFromFile();
+    }
 
-	@Override
-	public boolean add(Tournament x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void loadFromFile() {
+        ArrayList<Tournament> loaded = fileManager.readFromFile();
+        if (loaded != null) {
+            tournaments = loaded;
+        }
+    }
 
-	@Override
-	public boolean delete(Tournament x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void saveToFile() {
+        fileManager.writeToFile(tournaments);
+    }
 
-	@Override
-	public boolean update(Tournament x, Tournament y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public ArrayList<Tournament> getAll() {
+        return new ArrayList<>(tournaments);
+    }
 
-	@Override
-	public Tournament find(Tournament x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAllAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Tournament t : tournaments) {
+            sb.append(t).append("\n");
+        }
+        return sb.toString();
+    }
 
+    @Override
+    public boolean add(Tournament tournament) {
+        if (find(tournament) == null) {
+            tournaments.add(tournament);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Tournament tournament) {
+        Tournament found = find(tournament);
+        if (found != null) {
+            tournaments.remove(found);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Tournament oldTournament, Tournament newTournament) {
+        Tournament existing = find(oldTournament);
+        if (existing != null) {
+            tournaments.remove(existing);
+            tournaments.add(newTournament);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Tournament find(Tournament tournament) {
+        for (Tournament t : tournaments) {
+            if (t.equals(tournament)) {
+                return t;
+            }
+        }
+        return null;
+    }
+    
 }

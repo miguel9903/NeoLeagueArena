@@ -3,43 +3,86 @@ package model.persistence.dao;
 import java.util.ArrayList;
 
 import model.Coach;
+import model.persistence.FileManager;
+import utils.PersistencePaths;
 
 public class CoachDAO implements InterfaceDAO<Coach> {
 
-	@Override
-	public ArrayList<Coach> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private ArrayList<Coach> coaches;
+    private FileManager<Coach> fileManager;
 
-	@Override
-	public String getAllAsString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public CoachDAO() {
+        fileManager = new FileManager<>(PersistencePaths.COACHES_FILE);
+        coaches = new ArrayList<>();
+        loadFromFile();
+    }
 
-	@Override
-	public boolean add(Coach x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void loadFromFile() {
+        ArrayList<Coach> loaded = fileManager.readFromFile();
+        if (loaded != null) {
+            coaches = loaded;
+        }
+    }
 
-	@Override
-	public boolean delete(Coach x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void saveToFile() {
+        fileManager.writeToFile(coaches);
+    }
 
-	@Override
-	public boolean update(Coach x, Coach y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public ArrayList<Coach> getAll() {
+        return new ArrayList<>(coaches);
+    }
 
-	@Override
-	public Coach find(Coach x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAllAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Coach c : coaches) {
+            sb.append(c).append("\n");
+        }
+        return sb.toString();
+    }
 
+    @Override
+    public boolean add(Coach coach) {
+        if (find(coach) == null) {
+            coaches.add(coach);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Coach coach) {
+        Coach found = find(coach);
+        if (found != null) {
+            coaches.remove(found);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Coach oldCoach, Coach newCoach) {
+        Coach existing = find(oldCoach);
+        if (existing != null) {
+            coaches.remove(existing);
+            coaches.add(newCoach);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Coach find(Coach coach) {
+        for (Coach c : coaches) {
+            if (c.equals(coach)) {
+                return c;
+            }
+        }
+        return null;
+    }
+    
 }

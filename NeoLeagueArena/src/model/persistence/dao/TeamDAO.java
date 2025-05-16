@@ -3,43 +3,86 @@ package model.persistence.dao;
 import java.util.ArrayList;
 
 import model.Team;
+import model.persistence.FileManager;
+import utils.PersistencePaths;
 
 public class TeamDAO implements InterfaceDAO<Team> {
 
-	@Override
-	public ArrayList<Team> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private ArrayList<Team> teams;
+    private FileManager<Team> fileManager;
 
-	@Override
-	public String getAllAsString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public TeamDAO() {
+        fileManager = new FileManager<>(PersistencePaths.TEAMS_FILE);
+        teams = new ArrayList<>();
+        loadFromFile();
+    }
 
-	@Override
-	public boolean add(Team x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void loadFromFile() {
+        ArrayList<Team> loaded = fileManager.readFromFile();
+        if (loaded != null) {
+            teams = loaded;
+        }
+    }
 
-	@Override
-	public boolean delete(Team x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void saveToFile() {
+        fileManager.writeToFile(teams);
+    }
 
-	@Override
-	public boolean update(Team x, Team y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public ArrayList<Team> getAll() {
+        return new ArrayList<>(teams);
+    }
 
-	@Override
-	public Team find(Team x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAllAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Team t : teams) {
+            sb.append(t).append("\n");
+        }
+        return sb.toString();
+    }
 
+    @Override
+    public boolean add(Team team) {
+        if (find(team) == null) {
+            teams.add(team);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Team team) {
+        Team found = find(team);
+        if (found != null) {
+            teams.remove(found);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Team oldTeam, Team newTeam) {
+        Team existing = find(oldTeam);
+        if (existing != null) {
+            teams.remove(existing);
+            teams.add(newTeam);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Team find(Team team) {
+        for (Team t : teams) {
+            if (t.equals(team)) {
+                return t;
+            }
+        }
+        return null;
+    }
+    
 }

@@ -3,43 +3,86 @@ package model.persistence.dao;
 import java.util.ArrayList;
 
 import model.Match;
+import model.persistence.FileManager;
+import utils.PersistencePaths;
 
 public class MatchDAO implements InterfaceDAO<Match> {
 
-	@Override
-	public ArrayList<Match> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private ArrayList<Match> matches;
+    private FileManager<Match> fileManager;
 
-	@Override
-	public String getAllAsString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public MatchDAO() {
+        fileManager = new FileManager<>(PersistencePaths.MATCHES_FILE);
+        matches = new ArrayList<>();
+        loadFromFile();
+    }
 
-	@Override
-	public boolean add(Match x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void loadFromFile() {
+        ArrayList<Match> loaded = fileManager.readFromFile();
+        if (loaded != null) {
+            matches = loaded;
+        }
+    }
 
-	@Override
-	public boolean delete(Match x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void saveToFile() {
+        fileManager.writeToFile(matches);
+    }
 
-	@Override
-	public boolean update(Match x, Match y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public ArrayList<Match> getAll() {
+        return new ArrayList<>(matches);
+    }
 
-	@Override
-	public Match find(Match x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAllAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Match m : matches) {
+            sb.append(m).append("\n");
+        }
+        return sb.toString();
+    }
 
+    @Override
+    public boolean add(Match match) {
+        if (find(match) == null) {
+            matches.add(match);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Match match) {
+        Match found = find(match);
+        if (found != null) {
+            matches.remove(found);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Match oldMatch, Match newMatch) {
+        Match existing = find(oldMatch);
+        if (existing != null) {
+            matches.remove(existing);
+            matches.add(newMatch);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Match find(Match match) {
+        for (Match m : matches) {
+            if (m.equals(match)) {
+                return m;
+            }
+        }
+        return null;
+    }
+    
 }

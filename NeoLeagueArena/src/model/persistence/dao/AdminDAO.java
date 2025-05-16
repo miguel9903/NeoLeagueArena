@@ -3,43 +3,86 @@ package model.persistence.dao;
 import java.util.ArrayList;
 
 import model.Admin;
+import model.persistence.FileManager;
+import utils.PersistencePaths;
 
 public class AdminDAO implements InterfaceDAO<Admin> {
 
-	@Override
-	public ArrayList<Admin> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    private ArrayList<Admin> admins;
+    private FileManager<Admin> fileManager;
 
-	@Override
-	public String getAllAsString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public AdminDAO() {
+        fileManager = new FileManager<>(PersistencePaths.ADMINS_FILE);
+        admins = new ArrayList<>();
+        loadFromFile();
+    }
 
-	@Override
-	public boolean add(Admin x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void loadFromFile() {
+        ArrayList<Admin> loaded = fileManager.readFromFile();
+        if (loaded != null) {
+            admins = loaded;
+        }
+    }
 
-	@Override
-	public boolean delete(Admin x) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    private void saveToFile() {
+        fileManager.writeToFile(admins);
+    }
 
-	@Override
-	public boolean update(Admin x, Admin y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public ArrayList<Admin> getAll() {
+        return new ArrayList<>(admins);
+    }
 
-	@Override
-	public Admin find(Admin x) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public String getAllAsString() {
+        StringBuilder sb = new StringBuilder();
+        for (Admin a : admins) {
+            sb.append(a).append("\n");
+        }
+        return sb.toString();
+    }
 
+    @Override
+    public boolean add(Admin admin) {
+        if (find(admin) == null) {
+            admins.add(admin);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(Admin admin) {
+        Admin found = find(admin);
+        if (found != null) {
+            admins.remove(found);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean update(Admin oldAdmin, Admin newAdmin) {
+        Admin existing = find(oldAdmin);
+        if (existing != null) {
+            admins.remove(existing);
+            admins.add(newAdmin);
+            saveToFile();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Admin find(Admin admin) {
+        for (Admin a : admins) {
+            if (a.equals(admin)) {
+                return a;
+            }
+        }
+        return null;
+    }
+    
 }
