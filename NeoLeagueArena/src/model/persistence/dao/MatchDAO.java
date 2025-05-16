@@ -18,14 +18,14 @@ public class MatchDAO implements InterfaceDAO<Match> {
     }
 
     private void loadFromFile() {
-        ArrayList<Match> loaded = fileManager.readFromFile();
+        ArrayList<Match> loaded = fileManager.readFromFile(Match.class);
         if (loaded != null) {
             matches = loaded;
         }
     }
 
     private void saveToFile() {
-        fileManager.writeToFile(matches);
+        fileManager.writeToFile(matches, Match.class);
     }
 
     @Override

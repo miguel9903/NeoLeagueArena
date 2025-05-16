@@ -18,14 +18,14 @@ public class TeamDAO implements InterfaceDAO<Team> {
     }
 
     private void loadFromFile() {
-        ArrayList<Team> loaded = fileManager.readFromFile();
+        ArrayList<Team> loaded = fileManager.readFromFile(Team.class);
         if (loaded != null) {
             teams = loaded;
         }
     }
 
     private void saveToFile() {
-        fileManager.writeToFile(teams);
+        fileManager.writeToFile(teams, Team.class);
     }
 
     @Override

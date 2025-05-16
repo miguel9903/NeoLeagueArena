@@ -17,15 +17,15 @@ public class PlayerDAO implements InterfaceDAO<Player> {
         loadFromFile();
     }
 
-    private void loadFromFile() {
-        ArrayList<Player> loaded = fileManager.readFromFile();
+    public void loadFromFile() {
+        ArrayList<Player> loaded = fileManager.readFromFile(Player.class);
         if (loaded != null) {
             players = loaded;
         }
     }
 
-    private void saveToFile() {
-        fileManager.writeToFile(players);
+    public void saveToFile() {
+        fileManager.writeToFile(players, Player.class);
     }
 
     @Override

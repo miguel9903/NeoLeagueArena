@@ -2,24 +2,32 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
+import model.NeoLeagueArena;
+import model.persistence.dto.AdminDTO;
+import model.persistence.dto.CoachDTO;
+import model.persistence.dto.PlayerDTO;
+import model.persistence.dto.UserDTO;
 import utils.ButtonActionCommands;
-import utils.MessageDisplayer;
+import utils.FieldValidator;
 import utils.ViewNames;
 import view.View;
 import view.module.team.TeamCardPanel;
 import view.module.tournament.TournamentCardPanel;
-import view.modules.admin.AdminNavBarPanel;
-import view.modules.navigation.SideBarPanel;
 import view.modules.player.PlayerCardPanel;
 
 public class Controller implements ActionListener {
 
 	private View view;
+	private NeoLeagueArena neoLeagueArena;
 
 	public Controller() {
 		view = new View();
+		neoLeagueArena = new NeoLeagueArena();
+
+		neoLeagueArena.loadAdmins();
 		assignListeners();
 	}
 
@@ -30,6 +38,9 @@ public class Controller implements ActionListener {
 	public void assignListeners() {
 		// Login
 		assigLoginListeners();
+		
+		// Logout
+		assignLogoutListeners();
 
 		// Register
 		assignRegisterListeners();
@@ -57,6 +68,10 @@ public class Controller implements ActionListener {
 	public void assignRegisterListeners() {
 		view.getRegisterWindow().getRegisterButton().addActionListener(this);
 		view.getRegisterWindow().getCancelButton().addActionListener(this);
+	}
+	
+	public void assignLogoutListeners() {
+		view.getMainWindow().getMainContentPanel().getTopBarPanel().getLogoutButton().addActionListener(this);
 	}
 
 	public void assignSideBarListeners() {
@@ -132,18 +147,36 @@ public class Controller implements ActionListener {
 	}
 
 	public void handleLoginCommand(String command) {
-		if (command.equals(ButtonActionCommands.LOGIN_ACTION_COMMAND)) {
-			String email = view.getLoginWindow().getCredentialsPanel().getEmailTextField().getText().trim();
-			String password = new String(view.getLoginWindow().getCredentialsPanel().getPasswordTextField().getPassword()).trim();
-			
-			// Setear nombre user
-			view.getLoginWindow().dispose();
-			view.getMainWindow().setVisible(true);
-			
-		} else if(command.equals(ButtonActionCommands.LOGIN_REGISTER_ACTION_COMMAND)) {
-			view.getLoginWindow().dispose();
-			view.getRegisterWindow().setVisible(true);
-		}
+	    if (command.equals(ButtonActionCommands.LOGIN_ACTION_COMMAND)) {
+	        String email = view.getLoginWindow().getCredentialsPanel().getEmailTextField().getText().trim();
+	        String password = new String(view.getLoginWindow().getCredentialsPanel().getPasswordTextField().getPassword()).trim();
+
+	        if (FieldValidator.isAnyEmpty(email, password)) {
+	            view.showErrorMessage(view.getLoginWindow(), "Please enter both email and password.");
+	            return;
+	        }
+
+	        UserDTO loggedUser = neoLeagueArena.authenticateUser(email, password);
+
+	        if (loggedUser != null) {
+	            String loggedUserName = loggedUser.getFirstName() + " " + loggedUser.getLastName();
+
+	            view.getLoginWindow().getCredentialsPanel().resetFields();
+	            view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText(loggedUserName);
+	            view.getLoginWindow().dispose();
+	            view.getMainWindow().setVisible(true);
+	        } else {
+	            view.showErrorMessage(view.getLoginWindow(), "Incorrect email or password. Please try again.");
+	        }
+
+	    } else if (command.equals(ButtonActionCommands.LOGIN_REGISTER_ACTION_COMMAND)) {
+	        view.getLoginWindow().dispose();
+	        view.getRegisterWindow().setVisible(true);
+	    } else if (command.equals(ButtonActionCommands.LOGOUT_ACTION_COMMAND)) {
+            view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText("");
+	        view.getMainWindow().dispose();
+	        view.getLoginWindow().setVisible(true);
+	    }
 	}
 
 	public void handleSignUpCommand(String command) {
@@ -302,6 +335,5 @@ public class Controller implements ActionListener {
 			.showView(ViewNames.ADMIN_GAME_VIEW);
 		}
 	}
-
 
 }

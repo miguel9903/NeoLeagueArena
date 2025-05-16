@@ -23,10 +23,10 @@ public class LoginCredentialsPanel extends JPanel {
 	public LoginCredentialsPanel() {
 		setLayout(new GridLayout(3, 2, 10, 10));
 		setBackground(Color.WHITE);
-		
+
 		initializeComponents();
 	}
-	
+
 	private void initializeComponents() {
 		emailLabel = new JLabel("Email:");
 		emailLabel.setForeground(Color.BLACK);
@@ -43,6 +43,11 @@ public class LoginCredentialsPanel extends JPanel {
 
 		passwordTextField = new JPasswordField();
 		add(passwordTextField);
+	}
+
+	public void resetFields() {
+		emailTextField.setText("");
+		passwordTextField.setText("");
 	}
 
 	public JLabel getEmailLabel() {

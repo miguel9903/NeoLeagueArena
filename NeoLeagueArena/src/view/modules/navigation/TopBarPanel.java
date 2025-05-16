@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import utils.AssetPaths;
+import utils.ButtonActionCommands;
 import utils.Colors;
 
 public class TopBarPanel extends JPanel {
@@ -74,6 +75,7 @@ public class TopBarPanel extends JPanel {
 		logoutButton.setMaximumSize(new Dimension(180, 40));
 		logoutButton.setBackground(Color.LIGHT_GRAY);
 		logoutButton.setFocusPainted(false);
+		logoutButton.setActionCommand(ButtonActionCommands.LOGOUT_ACTION_COMMAND);
 		rightPanel.add(logoutButton);  
 
 		add(titleLabel, BorderLayout.WEST);

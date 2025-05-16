@@ -17,15 +17,15 @@ public class CoachDAO implements InterfaceDAO<Coach> {
         loadFromFile();
     }
 
-    private void loadFromFile() {
-        ArrayList<Coach> loaded = fileManager.readFromFile();
+    public void loadFromFile() {
+        ArrayList<Coach> loaded = fileManager.readFromFile(Coach.class);
         if (loaded != null) {
             coaches = loaded;
         }
     }
 
-    private void saveToFile() {
-        fileManager.writeToFile(coaches);
+    public void saveToFile() {
+        fileManager.writeToFile(coaches, Coach.class);
     }
 
     @Override

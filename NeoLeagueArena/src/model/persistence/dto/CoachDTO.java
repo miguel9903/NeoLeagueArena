@@ -3,90 +3,34 @@ package model.persistence.dto;
 import java.io.Serializable;
 import java.util.List;
 
-public class CoachDTO implements Serializable {
+public class CoachDTO extends UserDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String country;
-    private String city;
-    private String role; 
-    private List<Integer> teamIds; 
+	private List<Integer> teamIds;
 
-    public int getId() {
-        return id;
-    }
+	public CoachDTO() {
+		super();
+		setRole("COACH");
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+	public CoachDTO(int id, String firstName, String lastName, String email, String password,
+			String country, String city, List<Integer> teamIds) {
+		super(id, firstName, lastName, email, password, country, city, "COACH");
+		this.teamIds = teamIds;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public List<Integer> getTeamIds() {
+		return teamIds;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setTeamIds(List<Integer> teamIds) {
+		this.teamIds = teamIds;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	@Override
+	public String toString() {
+		return super.toString() + ", CoachDTO [teamIds=" + teamIds + "]";
+	}
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public List<Integer> getTeamIds() {
-        return teamIds;
-    }
-
-    public void setTeamIds(List<Integer> teamIds) {
-        this.teamIds = teamIds;
-    }
-    
 }

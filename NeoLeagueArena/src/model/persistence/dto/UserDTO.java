@@ -1,10 +1,11 @@
 package model.persistence.dto;
 
-import java.util.List;
+import java.io.Serializable;
 
-public class UserDTO {
-    
-    // Common fields for all user types
+public class UserDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int id;
     private String firstName;
     private String lastName;
@@ -14,108 +15,92 @@ public class UserDTO {
     private String city;
     private String role;
 
-    // Fields specific to Player
-    private String nickName;
-    private Integer experienceLevel;
-    private Integer currentTeamId;
+    public UserDTO() { }
+
+    public UserDTO(int id, String firstName, String lastName, String email, String password,
+                   String country, String city, String role) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.country = country;
+        this.city = city;
+        this.role = role;
+    }
+
+    public boolean login(String email, String password) {
+        return this.email.equals(email) && this.password.equals(password);
+    }
     
-    //Fields specific to Coach
-    private List<Integer> teamIds;
+    public int getId() {
+        return id;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public String getRole() {
+        return role;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public Integer getExperienceLevel() {
-		return experienceLevel;
-	}
-
-	public void setExperienceLevel(Integer experienceLevel) {
-		this.experienceLevel = experienceLevel;
-	}
-
-	public Integer getCurrentTeamId() {
-		return currentTeamId;
-	}
-
-	public void setCurrentTeamId(Integer currentTeamId) {
-		this.currentTeamId = currentTeamId;
-	}
-
-	public List<Integer> getTeamIds() {
-		return teamIds;
-	}
-
-	public void setTeamIds(List<Integer> teamIds) {
-		this.teamIds = teamIds;
-	} 
-    
+    @Override
+    public String toString() {
+        return "UserDTO [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName +
+                ", email=" + email + ", password=" + password + ", country=" + country +
+                ", city=" + city + ", role=" + role + "]";
+    }
 }

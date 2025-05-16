@@ -3,6 +3,7 @@ package view.windows;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
+import utils.MessageDisplayer;
 import view.modules.layout.MainContentPanel;
 import view.modules.navigation.SideBarPanel;
 
@@ -38,4 +39,5 @@ public class MainWindow extends JFrame {
 	public MainContentPanel getMainContentPanel() {
 		return mainContentPanel;
 	}
+	
 }

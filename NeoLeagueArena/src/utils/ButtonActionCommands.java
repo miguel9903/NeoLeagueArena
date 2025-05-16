@@ -4,8 +4,11 @@ public class ButtonActionCommands {
 
     public static final String LOGIN_ACTION_COMMAND = "LOGIN";
     public static final String LOGIN_REGISTER_ACTION_COMMAND = "LOGIN_REGISTER";
+    
     public static final String REGISTER_ACTION_COMMAND = "REGISTER";
     public static final String REGISTER_CANCEL_ACTION_COMMAND = "REGISTER_CANCEL";
+    
+    public static final String LOGOUT_ACTION_COMMAND = "LOGOUT";
 	
     public static final String ADMIN_HOME_ACTION_COMMAND = "ADMIN_HOME";
     public static final String ADMIN_TOURNAMENT_ACTION_COMMAND = "ADMIN_TOURNAMENT";

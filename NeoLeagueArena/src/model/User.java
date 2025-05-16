@@ -26,6 +26,10 @@ public abstract class User {
 		this.role = role;
 	}
 
+	public boolean login(String email, String password) {
+	    return this.email.equals(email) && this.password.equals(password);
+	}
+	
 	public int getId() {
 		return id;
 	}

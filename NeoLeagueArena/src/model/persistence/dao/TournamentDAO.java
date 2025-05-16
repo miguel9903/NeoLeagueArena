@@ -18,14 +18,14 @@ public class TournamentDAO implements InterfaceDAO<Tournament> {
     }
 
     private void loadFromFile() {
-        ArrayList<Tournament> loaded = fileManager.readFromFile();
+        ArrayList<Tournament> loaded = fileManager.readFromFile(Tournament.class);
         if (loaded != null) {
             tournaments = loaded;
         }
     }
 
     private void saveToFile() {
-        fileManager.writeToFile(tournaments);
+        fileManager.writeToFile(tournaments, Tournament.class);
     }
 
     @Override

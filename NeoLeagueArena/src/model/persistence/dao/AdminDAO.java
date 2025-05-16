@@ -1,6 +1,7 @@
 package model.persistence.dao;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import model.Admin;
 import model.persistence.FileManager;
@@ -15,17 +16,36 @@ public class AdminDAO implements InterfaceDAO<Admin> {
         fileManager = new FileManager<>(PersistencePaths.ADMINS_FILE);
         admins = new ArrayList<>();
         loadFromFile();
+
+        if (admins.isEmpty()) {
+            loadInitialData();
+            saveToFile();
+        }
     }
 
-    private void loadFromFile() {
-        ArrayList<Admin> loaded = fileManager.readFromFile();
+    public void loadFromFile() {
+        ArrayList<Admin> loaded = fileManager.readFromFile(Admin.class);
         if (loaded != null) {
             admins = loaded;
         }
     }
 
-    private void saveToFile() {
-        fileManager.writeToFile(admins);
+    public void saveToFile() {
+        fileManager.writeToFile(admins, Admin.class);
+    }
+
+    private void loadInitialData() {
+        Admin defaultAdmin = new Admin(
+            1,
+            "ADMIN",
+            "ADMIN",
+            "admin",
+            "123",
+            "Colombia",
+            "Bogotá D.C."
+        );
+
+        admins.add(defaultAdmin);
     }
 
     @Override
@@ -35,11 +55,9 @@ public class AdminDAO implements InterfaceDAO<Admin> {
 
     @Override
     public String getAllAsString() {
-        StringBuilder sb = new StringBuilder();
-        for (Admin a : admins) {
-            sb.append(a).append("\n");
-        }
-        return sb.toString();
+        return admins.stream()
+                .map(Admin::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     @Override
@@ -78,11 +96,10 @@ public class AdminDAO implements InterfaceDAO<Admin> {
     @Override
     public Admin find(Admin admin) {
         for (Admin a : admins) {
-            if (a.equals(admin)) {
+            if (a.getId() == admin.getId()) {
                 return a;
             }
         }
         return null;
     }
-    
 }
