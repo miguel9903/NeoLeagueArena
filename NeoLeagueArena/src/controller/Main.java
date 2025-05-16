@@ -6,12 +6,8 @@ import view.windows.MainWindow;
 public class Main {
 
 	public static void main(String[] args) {
-	
-		// MainWindow mw = new MainWindow();
-		// LoginWindow lw = new LoginWindow();
 		Controller controller = new Controller();
 		controller.run();
-
 	}
 
 }

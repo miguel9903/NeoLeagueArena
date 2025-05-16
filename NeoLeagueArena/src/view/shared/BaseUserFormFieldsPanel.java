@@ -74,7 +74,7 @@ public class BaseUserFormFieldsPanel extends JPanel {
 		add(countryLabel);
 		add(countryTextField);
 
-		cityLabel = new JLabel("Cuty:");
+		cityLabel = new JLabel("City:");
 		cityTextField = new JTextField();
 		add(cityLabel);
 		add(cityTextField);

@@ -19,16 +19,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import utils.AssetPaths;
+import utils.ButtonActionCommands;
 import utils.Colors;
 
 public class LoginWindow extends JFrame {
 
-	private CredentialsPanel credentialsPanel;
+	private LoginCredentialsPanel credentialsPanel;
 	private JLabel logoLabel;
 	private JPanel buttonsPanel;
 	private JPanel logoPanel;
 	private JButton loginButton;
-	private JButton cancelButton;
+	private JButton registerButton;
 
 	public LoginWindow() {
 		setTitle("Login");
@@ -39,7 +40,7 @@ public class LoginWindow extends JFrame {
 		setLayout(new BorderLayout());
 
 		initializeComponents();
-		setVisible(true);
+		setVisible(false);
 	}
 
 
@@ -53,7 +54,7 @@ public class LoginWindow extends JFrame {
 		logoPanel.setBackground(Color.decode(Colors.DARK_SECONDARY));
 		logoPanel.add(logoLabel);
 
-		credentialsPanel = new CredentialsPanel();
+		credentialsPanel = new LoginCredentialsPanel();
 		credentialsPanel.setPreferredSize(new Dimension(600, 300));
 		credentialsPanel.setBorder(new EmptyBorder(20, 100, 0, 100)); 
 
@@ -62,12 +63,12 @@ public class LoginWindow extends JFrame {
 		buttonsPanel.setBorder(new EmptyBorder(20, 40, 20, 40)); 
 
 		loginButton = new JButton("Login");
-		loginButton.setActionCommand("BOTON_LOGIN_INGRESAR");
+		loginButton.setActionCommand(ButtonActionCommands.LOGIN_ACTION_COMMAND);
 		buttonsPanel.add(loginButton);
 
-		cancelButton = new JButton("Cancel");
-		cancelButton.setActionCommand("BOTON_LOGIN_CANCELAR");
-		buttonsPanel.add(cancelButton);
+		registerButton = new JButton("Register");
+		registerButton.setActionCommand(ButtonActionCommands.LOGIN_REGISTER_ACTION_COMMAND);
+		buttonsPanel.add(registerButton);
 
 		add(logoPanel, BorderLayout.NORTH);
 		add(credentialsPanel, BorderLayout.CENTER);
@@ -80,52 +81,63 @@ public class LoginWindow extends JFrame {
 		return new ImageIcon(scaledImage);
 	}
 
-	public CredentialsPanel getCredentialsPanel() {
+
+	public LoginCredentialsPanel getCredentialsPanel() {
 		return credentialsPanel;
 	}
 
-	public void setCredentialsPanel(CredentialsPanel credentialsPanel) {
+
+	public void setCredentialsPanel(LoginCredentialsPanel credentialsPanel) {
 		this.credentialsPanel = credentialsPanel;
 	}
+
 
 	public JLabel getLogoLabel() {
 		return logoLabel;
 	}
 
+
 	public void setLogoLabel(JLabel logoLabel) {
 		this.logoLabel = logoLabel;
 	}
+
 
 	public JPanel getButtonsPanel() {
 		return buttonsPanel;
 	}
 
+
 	public void setButtonsPanel(JPanel buttonsPanel) {
 		this.buttonsPanel = buttonsPanel;
 	}
+
 
 	public JPanel getLogoPanel() {
 		return logoPanel;
 	}
 
+
 	public void setLogoPanel(JPanel logoPanel) {
 		this.logoPanel = logoPanel;
 	}
+
 
 	public JButton getLoginButton() {
 		return loginButton;
 	}
 
+
 	public void setLoginButton(JButton loginButton) {
 		this.loginButton = loginButton;
 	}
 
-	public JButton getCancelButton() {
-		return cancelButton;
+
+	public JButton getRegisterButton() {
+		return registerButton;
 	}
 
-	public void setCancelButton(JButton cancelButton) {
-		this.cancelButton = cancelButton;
-	}
 
+	public void setRegisterButton(JButton registerButton) {
+		this.registerButton = registerButton;
+	}
 }

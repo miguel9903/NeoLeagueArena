@@ -6,9 +6,9 @@ import view.windows.MainWindow;
 
 public class View {
 	
-	LoginWindow loginWindow;
-	RegisterWindow registerWindow;
-	MainWindow mainWindow;
+	private LoginWindow loginWindow;
+	private RegisterWindow registerWindow;
+	private MainWindow mainWindow;
 	
 	public View() {
 		loginWindow = new LoginWindow();

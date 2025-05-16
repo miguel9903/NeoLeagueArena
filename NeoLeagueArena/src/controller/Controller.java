@@ -23,7 +23,17 @@ public class Controller implements ActionListener {
 		assignListeners();
 	}
 
+	public void run() {
+		view.getLoginWindow().setVisible(true);
+	}
+
 	public void assignListeners() {
+		// Login
+		assigLoginListeners();
+
+		// Register
+		assignRegisterListeners();
+
 		// Sidebar Panel
 		assignSideBarListeners();
 
@@ -39,27 +49,37 @@ public class Controller implements ActionListener {
 		assignTeamDetailListeners();
 	}
 
+	public void assigLoginListeners() {
+		view.getLoginWindow().getLoginButton().addActionListener(this);
+		view.getLoginWindow().getRegisterButton().addActionListener(this);
+	}
+
+	public void assignRegisterListeners() {
+		view.getRegisterWindow().getRegisterButton().addActionListener(this);
+		view.getRegisterWindow().getCancelButton().addActionListener(this);
+	}
+
 	public void assignSideBarListeners() {
-	    view.getMainWindow().getSideBarPanel().getHomeButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getTournamentsButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getTeamsButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getPlayersButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getCoachesButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getAdminsButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getMatchesButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getGamesButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getReportsButton().addActionListener(this);
-	    view.getMainWindow().getSideBarPanel().getSettingsButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getHomeButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getTournamentsButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getTeamsButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getPlayersButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getCoachesButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getAdminsButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getMatchesButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getGamesButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getReportsButton().addActionListener(this);
+		view.getMainWindow().getSideBarPanel().getSettingsButton().addActionListener(this);
 	}
 
 	public void assignAdminNavBarListeners() {
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getTournamentsButton().addActionListener(this);
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getTeamsButton().addActionListener(this);
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getPlayersButton().addActionListener(this);
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getCoachesButton().addActionListener(this);
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getAdministratorsButton().addActionListener(this);
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getMatchesButton().addActionListener(this);
-	    view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getGamesButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getTournamentsButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getTeamsButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getPlayersButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getCoachesButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getAdministratorsButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getMatchesButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getGamesButton().addActionListener(this);
 	}
 
 	public void assignTournamentListListeners() {
@@ -97,20 +117,50 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	public void run() {
-		view.getMainWindow().setVisible(true);
-	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
 
+		handleLoginCommand(command);
+		handleSignUpCommand(command);
 		handleSidebarCommand(command);
-	    handleTournamentCommand(command);
-	    handleTeamCommand(command);
-	    handlePlayerCommand(command);
-	    handleAdminCommand(command);	
+		handleTournamentCommand(command);
+		handleTeamCommand(command);
+		handlePlayerCommand(command);
+		handleAdminCommand(command);	
+	}
+
+	public void handleLoginCommand(String command) {
+		if (command.equals(ButtonActionCommands.LOGIN_ACTION_COMMAND)) {
+			String email = view.getLoginWindow().getCredentialsPanel().getEmailTextField().getText().trim();
+			String password = new String(view.getLoginWindow().getCredentialsPanel().getPasswordTextField().getPassword()).trim();
+			
+			// Setear nombre user
+			view.getLoginWindow().dispose();
+			view.getMainWindow().setVisible(true);
+			
+		} else if(command.equals(ButtonActionCommands.LOGIN_REGISTER_ACTION_COMMAND)) {
+			view.getLoginWindow().dispose();
+			view.getRegisterWindow().setVisible(true);
+		}
+	}
+
+	public void handleSignUpCommand(String command) {
+		if (command.equals(ButtonActionCommands.REGISTER_ACTION_COMMAND)) {
+			String id = view.getRegisterWindow().getRegisterFieldsPanel().getIdTextField().getText().trim();
+			String firstName = view.getRegisterWindow().getRegisterFieldsPanel().getFirstNameTextField().getText().trim();
+			String lastName = view.getRegisterWindow().getRegisterFieldsPanel().getLastNameTextField().getText().trim();
+			String email = view.getRegisterWindow().getRegisterFieldsPanel().getEmailTextField().getText().trim();
+			String password = new String(view.getRegisterWindow().getRegisterFieldsPanel().getPasswordTextField().getPassword());
+			String country = view.getRegisterWindow().getRegisterFieldsPanel().getCountryTextField().getText().trim();
+			String city = view.getRegisterWindow().getRegisterFieldsPanel().getCityTextField().getText().trim();
+			String role = (String) view.getRegisterWindow().getRegisterFieldsPanel().getRoleComboBox().getSelectedItem();
+
+		} else if(command.equals(ButtonActionCommands.REGISTER_CANCEL_ACTION_COMMAND)) {
+			view.getRegisterWindow().dispose();
+			view.getLoginWindow().setVisible(true);
+		}
 	}
 
 	public void handleSidebarCommand(String command) {

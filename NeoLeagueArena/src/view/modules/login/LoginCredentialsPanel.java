@@ -13,14 +13,14 @@ import javax.swing.border.LineBorder;
 
 import utils.Colors;
 
-public class CredentialsPanel extends JPanel {
+public class LoginCredentialsPanel extends JPanel {
 
 	private JLabel emailLabel;
 	private JLabel passwordLabel;
 	private JTextField emailTextField;
-	private JPasswordField passwordField;
+	private JPasswordField passwordTextField;
 
-	public CredentialsPanel() {
+	public LoginCredentialsPanel() {
 		setLayout(new GridLayout(3, 2, 10, 10));
 		setBackground(Color.WHITE);
 		
@@ -34,7 +34,6 @@ public class CredentialsPanel extends JPanel {
 		add(emailLabel);
 
 		emailTextField = new JTextField();
-		emailTextField.setBorder(new LineBorder(Color.decode(Colors.DARK_SECONDARY), 2));
 		add(emailTextField);
 
 		passwordLabel = new JLabel("Password:");
@@ -42,9 +41,8 @@ public class CredentialsPanel extends JPanel {
 		passwordLabel.setFont(new Font("Arial", Font.BOLD, 14));
 		add(passwordLabel);
 
-		passwordField = new JPasswordField();
-		passwordField.setBorder(new LineBorder(Color.decode(Colors.DARK_SECONDARY), 2));
-		add(passwordField);
+		passwordTextField = new JPasswordField();
+		add(passwordTextField);
 	}
 
 	public JLabel getEmailLabel() {
@@ -71,12 +69,11 @@ public class CredentialsPanel extends JPanel {
 		this.emailTextField = emailTextField;
 	}
 
-	public JPasswordField getPasswordField() {
-		return passwordField;
+	public JPasswordField getPasswordTextField() {
+		return passwordTextField;
 	}
 
-	public void setPasswordField(JPasswordField passwordField) {
-		this.passwordField = passwordField;
+	public void setPasswordTextField(JPasswordField passwordTextField) {
+		this.passwordTextField = passwordTextField;
 	}
-
 }
