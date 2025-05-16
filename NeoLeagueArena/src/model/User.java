@@ -1,5 +1,7 @@
 package model;
 
+import model.enums.UserRole;
+
 public abstract class User {
 
 	protected int id;

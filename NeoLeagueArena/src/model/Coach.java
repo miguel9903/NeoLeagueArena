@@ -2,17 +2,20 @@ package model;
 
 import java.util.List;
 
+import model.enums.UserRole;
+
 public class Coach extends User {
 
 	private List<Team> teams;
 
-	public Coach(String firstName, String lastName, String email, String password, UserRole role, List<Team> teams) {
-		super(firstName, lastName, email, password, role);
+	public Coach(int id, String firstName, String lastName, String email, String password, String country, String city,
+			UserRole role, List<Team> teams) {
+		super(id, firstName, lastName, email, password, country, city, role);
 		this.teams = teams;
 	}
-	
-	public Coach(String firstName, String lastName, String email, String password, List<Team> teams) {
-		super(firstName, lastName, email, password, UserRole.COACH);
+
+	public Coach(int id, String firstName, String lastName, String email, String password, String country, String city, List<Team> teams) {
+		super(id, firstName, lastName, email, password, country, city, UserRole.COACH);
 		this.teams = teams;
 	}
 
@@ -23,5 +26,4 @@ public class Coach extends User {
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
 	}
-	
 }

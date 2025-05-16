@@ -1,4 +1,4 @@
-package model;
+package model.enums;
 
 public enum GameGenre {
 	
@@ -25,5 +25,17 @@ public enum GameGenre {
 	public String getDisplayName() {
 		return displayName;
 	}
+	
+    public static GameGenre fromString(String genre) {
+        if (genre == null) return null;
+
+        for (GameGenre gg : GameGenre.values()) {
+            if (gg.name().equalsIgnoreCase(genre) || gg.getDisplayName().equalsIgnoreCase(genre)) {
+                return gg;
+            }
+        }
+
+        return null;
+    }
 	
 }

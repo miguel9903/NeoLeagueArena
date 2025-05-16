@@ -1,4 +1,4 @@
-package model;
+package model.enums;
 
 public enum GameMode {
 
@@ -24,4 +24,15 @@ public enum GameMode {
         return displayName;
     }
 	
+    public static GameMode fromString(String mode) {
+        if (mode == null) return null;
+
+        for (GameMode gm : GameMode.values()) {
+            if (gm.name().equalsIgnoreCase(mode) || gm.getDisplayName().equalsIgnoreCase(mode)) {
+                return gm;
+            }
+        }
+
+        return null;
+    }
 }

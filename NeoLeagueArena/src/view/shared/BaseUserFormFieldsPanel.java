@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import model.UserRole;
+import model.enums.UserRole;
 
 public class BaseUserFormFieldsPanel extends JPanel {
 

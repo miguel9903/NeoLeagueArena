@@ -1,19 +1,15 @@
 package model;
 
-import java.util.List;
+import model.enums.UserRole;
 
 public class Admin extends User {
 
-	private List<String> permissions;
-
-	public Admin(String firstName, String lastName, String email, String password, UserRole role,
-			List<String> permissions) {
-		super(firstName, lastName, email, password, role);
-		this.permissions = permissions;
+	public Admin(int id, String firstName, String lastName, String email, String password, String country, String city,
+			UserRole role) {
+		super(id, firstName, lastName, email, password, country, city, role);
 	}
-	
 
-
-	
-	
+	public Admin(int id, String firstName, String lastName, String email, String password, String country, String city) {
+		super(id, firstName, lastName, email, password, country, city, UserRole.ADMIN);
+	}
 }

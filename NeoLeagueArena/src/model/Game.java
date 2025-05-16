@@ -1,25 +1,31 @@
 package model;
 
+import java.util.List;
+
+import model.enums.GameGenre;
+import model.enums.GameMode;
+import model.enums.GamePlatform;
+
 public class Game {
 
 	private int id;
 	private String name;
 	private String description;
-	private String coverImage;
-	private GameGenre game;
+	private String logo;
+	private GameGenre genre;
 	private GamePlatform platform;
-	private GameMode mode;
+	private List<GameMode> modes;
 	
-	public Game(int id, String name, String description, String coverImage, GameGenre game, GamePlatform platform,
-			GameMode mode) {
+	public Game(int id, String name, String description, String logo, GameGenre genre, GamePlatform platform,
+			List<GameMode> modes) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.coverImage = coverImage;
-		this.game = game;
+		this.logo = logo;
+		this.genre = genre;
 		this.platform = platform;
-		this.mode = mode;
+		this.modes = modes;
 	}
 
 	public int getId() {
@@ -46,20 +52,20 @@ public class Game {
 		this.description = description;
 	}
 
-	public String getCoverImage() {
-		return coverImage;
+	public String getLogo() {
+		return logo;
 	}
 
-	public void setCoverImage(String coverImage) {
-		this.coverImage = coverImage;
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
-	public GameGenre getGame() {
-		return game;
+	public GameGenre getGenre() {
+		return genre;
 	}
 
-	public void setGame(GameGenre game) {
-		this.game = game;
+	public void setGenre(GameGenre genre) {
+		this.genre = genre;
 	}
 
 	public GamePlatform getPlatform() {
@@ -70,12 +76,11 @@ public class Game {
 		this.platform = platform;
 	}
 
-	public GameMode getMode() {
-		return mode;
+	public List<GameMode> getModes() {
+		return modes;
 	}
 
-	public void setMode(GameMode mode) {
-		this.mode = mode;
+	public void setModes(List<GameMode> modes) {
+		this.modes = modes;
 	}
-	
 }

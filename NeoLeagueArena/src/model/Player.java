@@ -1,5 +1,7 @@
 package model;
 
+import model.enums.UserRole;
+
 public class Player extends User {
 
 	private String nickName;
@@ -9,6 +11,10 @@ public class Player extends User {
 	public Player(int id, String firstName, String lastName, String email, String password, String country, String city,
 			UserRole role) {
 		super(id, firstName, lastName, email, password, country, city, role);
+	}
+	
+	public Player(int id, String firstName, String lastName, String email, String password, String country, String city) {
+		super(id, firstName, lastName, email, password, country, city, UserRole.PLAYER);
 	}
 
 	public String getNickName() {
