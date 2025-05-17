@@ -9,12 +9,22 @@ public class ButtonActionCommands {
     public static final String REGISTER_CANCEL_ACTION_COMMAND = "REGISTER_CANCEL";
     
     public static final String LOGOUT_ACTION_COMMAND = "LOGOUT";
+    
+    public static final String TEAM_DETAIL = "TEAM_DETAIL";
 	
     public static final String ADMIN_HOME_ACTION_COMMAND = "ADMIN_HOME";
     public static final String ADMIN_TOURNAMENT_ACTION_COMMAND = "ADMIN_TOURNAMENT";
     public static final String ADMIN_TOURNAMENT_DETAIL_ACTION_COMMAND = "ADMIN_TOURNAMENT_DETAIL";
+    
+    // Admin Team
     public static final String ADMIN_TEAM_ACTION_COMMAND = "ADMIN_TEAM";
     public static final String ADMIN_TEAM_DETAIL_ACTION_COMMAND = "ADMIN_TEAM_DETAIL";
+    public static final String ADMIN_ADD_PLAYERS_TO_TEAM = "ADD_PLAYERS_TO_TEAM ";
+    public static final String ADMIN_DELETE_PLAYERS_TO_TEAM = "DELETE_PLAYERS_TO_TEAM ";
+    public static final String ADMIN_CREATE_TEAM = "CREATE_TEAM ";
+    public static final String ADMIN_UPDATE_TEAM = "UPDATE_TEAM ";
+    public static final String ADMIN_DELETE_TEAM = "DELETE_TEAM ";
+    
     public static final String ADMIN_PLAYER_ACTION_COMMAND = "ADMIN_PLAYER";
     public static final String ADMIN_PLAYER_DETAIL_ACTION_COMMAND = "ADMIN_PLAYER_DETAIL";
     public static final String ADMIN_COACH_ACTION_COMMAND = "ADMIN_COACH";

@@ -9,7 +9,9 @@ import model.NeoLeagueArena;
 import model.persistence.dto.AdminDTO;
 import model.persistence.dto.CoachDTO;
 import model.persistence.dto.PlayerDTO;
+import model.persistence.dto.TeamDTO;
 import model.persistence.dto.UserDTO;
+import utils.AssetPaths;
 import utils.ButtonActionCommands;
 import utils.FieldValidator;
 import utils.ViewNames;
@@ -38,7 +40,7 @@ public class Controller implements ActionListener {
 	public void assignListeners() {
 		// Login
 		assigLoginListeners();
-		
+
 		// Logout
 		assignLogoutListeners();
 
@@ -51,13 +53,12 @@ public class Controller implements ActionListener {
 		// Admin Panel
 		assignAdminNavBarListeners();
 
-
 		// Tournaments Panel
-		assignTournamentListListeners();
+		assignTournamentListeners();
 
 		// Teams Panel
-		assignTeamsListListeners();
 		assignTeamDetailListeners();
+		assignAdminTeamListeners();
 	}
 
 	public void assigLoginListeners() {
@@ -69,7 +70,7 @@ public class Controller implements ActionListener {
 		view.getRegisterWindow().getRegisterButton().addActionListener(this);
 		view.getRegisterWindow().getCancelButton().addActionListener(this);
 	}
-	
+
 	public void assignLogoutListeners() {
 		view.getMainWindow().getMainContentPanel().getTopBarPanel().getLogoutButton().addActionListener(this);
 	}
@@ -97,7 +98,7 @@ public class Controller implements ActionListener {
 		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminNavBarPanel().getGamesButton().addActionListener(this);
 	}
 
-	public void assignTournamentListListeners() {
+	public void assignTournamentListeners() {
 		List<TournamentCardPanel> tournamentCards = view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTournamentPanel().getTournamentCards();
 
 		for (int i = 0; i < tournamentCards.size(); i++) {
@@ -108,7 +109,16 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	public void assignTeamsListListeners() {
+	public void assignTeamtListeners() {
+		List<TeamCardPanel> teamtCards = view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamsPanel().getTeamCards();
+
+		for (int i = 0; i < teamtCards.size(); i++) {
+			TeamCardPanel card = teamtCards.get(i);
+			card.getDetailButton().addActionListener(this);
+		}
+	}
+
+	public void assignTeamListeners () {
 		List<TeamCardPanel> teamCards = view.getMainWindow().getMainContentPanel()
 				.getLayoutContentPanel().getTeamsPanel().getTeamCards(); 
 
@@ -132,10 +142,16 @@ public class Controller implements ActionListener {
 		}
 	}
 
+	public void assignAdminTeamListeners() {
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamFormPanel().getFormFooterPanel().getPrimaryButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamFormPanel().getFormFooterPanel().getSecondaryButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamPlayerAssignmentPanel().getAddPlayerButton().addActionListener(this);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String command = e.getActionCommand();
+		System.out.print("\n COMMAND: " + command + "\n");
 
 		handleLoginCommand(command);
 		handleSignUpCommand(command);
@@ -143,40 +159,46 @@ public class Controller implements ActionListener {
 		handleTournamentCommand(command);
 		handleTeamCommand(command);
 		handlePlayerCommand(command);
-		handleAdminCommand(command);	
+		handleAdminCommand(command);
+		handleAdminTeamCommand(command);
 	}
 
 	public void handleLoginCommand(String command) {
-	    if (command.equals(ButtonActionCommands.LOGIN_ACTION_COMMAND)) {
-	        String email = view.getLoginWindow().getCredentialsPanel().getEmailTextField().getText().trim();
-	        String password = new String(view.getLoginWindow().getCredentialsPanel().getPasswordTextField().getPassword()).trim();
+		if (command.equals(ButtonActionCommands.LOGIN_ACTION_COMMAND)) {
+			String email = view.getLoginWindow().getCredentialsPanel().getEmailTextField().getText().trim();
+			String password = new String(view.getLoginWindow().getCredentialsPanel().getPasswordTextField().getPassword()).trim();
 
-	        if (FieldValidator.isAnyEmpty(email, password)) {
-	            view.showErrorMessage(view.getLoginWindow(), "Please enter both email and password.");
-	            return;
-	        }
+			if (FieldValidator.isAnyEmpty(email, password)) {
+				view.showErrorMessage(view.getLoginWindow(), "Please enter both email and password.");
+				return;
+			}
 
-	        UserDTO loggedUser = neoLeagueArena.authenticateUser(email, password);
+			UserDTO loggedUser = neoLeagueArena.authenticateUser(email, password);
 
-	        if (loggedUser != null) {
-	            String loggedUserName = loggedUser.getFirstName() + " " + loggedUser.getLastName();
+			if (loggedUser != null) {
+				String loggedUserName = loggedUser.getFirstName() + " " + loggedUser.getLastName();
 
-	            view.getLoginWindow().getCredentialsPanel().resetFields();
-	            view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText(loggedUserName);
-	            view.getLoginWindow().dispose();
-	            view.getMainWindow().setVisible(true);
-	        } else {
-	            view.showErrorMessage(view.getLoginWindow(), "Incorrect email or password. Please try again.");
-	        }
+				view.getLoginWindow().getCredentialsPanel().resetFields();
+				view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText(loggedUserName);
 
-	    } else if (command.equals(ButtonActionCommands.LOGIN_REGISTER_ACTION_COMMAND)) {
-	        view.getLoginWindow().dispose();
-	        view.getRegisterWindow().setVisible(true);
-	    } else if (command.equals(ButtonActionCommands.LOGOUT_ACTION_COMMAND)) {
-            view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText("");
-	        view.getMainWindow().dispose();
-	        view.getLoginWindow().setVisible(true);
-	    }
+				if (!"ADMIN".equalsIgnoreCase(loggedUser.getRole())) {
+					view.getMainWindow().getSideBarPanel().showAdminsButton(false);
+				}
+
+				view.getLoginWindow().dispose();
+				view.getMainWindow().setVisible(true);
+			} else {
+				view.showErrorMessage(view.getLoginWindow(), "Incorrect email or password. Please try again.");
+			}
+
+		} else if (command.equals(ButtonActionCommands.LOGIN_REGISTER_ACTION_COMMAND)) {
+			view.getLoginWindow().dispose();
+			view.getRegisterWindow().setVisible(true);
+		} else if (command.equals(ButtonActionCommands.LOGOUT_ACTION_COMMAND)) {
+			view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText("");
+			view.getMainWindow().dispose();
+			view.getLoginWindow().setVisible(true);
+		}
 	}
 
 	public void handleSignUpCommand(String command) {
@@ -189,6 +211,59 @@ public class Controller implements ActionListener {
 			String country = view.getRegisterWindow().getRegisterFieldsPanel().getCountryTextField().getText().trim();
 			String city = view.getRegisterWindow().getRegisterFieldsPanel().getCityTextField().getText().trim();
 			String role = (String) view.getRegisterWindow().getRegisterFieldsPanel().getRoleComboBox().getSelectedItem();
+
+			if (FieldValidator.isAnyEmpty(id, firstName, lastName, email, password, country, city, role)) {
+				view.showErrorMessage(view.getRegisterWindow(), "Please fill in all fields.");
+				return;
+			}
+
+			if (role.equalsIgnoreCase("Player")) {
+				PlayerDTO newPlayer = new PlayerDTO();
+
+				newPlayer.setId(Integer.parseInt(id));
+				newPlayer.setFirstName(firstName);
+				newPlayer.setLastName(lastName);
+				newPlayer.setEmail(email);
+				newPlayer.setPassword(password);
+				newPlayer.setCountry(country);
+				newPlayer.setCity(city);
+				newPlayer.setRole(role);
+
+				boolean successRegistry = neoLeagueArena.addPlayer(newPlayer);
+
+				if (successRegistry) {
+					view.showInfoMessage(view.getRegisterWindow(), "Player registered successfully!");
+					view.getRegisterWindow().getRegisterFieldsPanel().resetFields();
+					view.getRegisterWindow().dispose();
+					view.getLoginWindow().setVisible(true);
+				} else {
+					view.showErrorMessage(view.getRegisterWindow(), "Player with that email or ID already exists.");
+				}
+
+			} else if (role.equalsIgnoreCase("Coach")) {
+				CoachDTO newCoach = new CoachDTO();
+
+				newCoach.setId(Integer.parseInt(id));
+				newCoach.setFirstName(firstName);
+				newCoach.setLastName(lastName);
+				newCoach.setEmail(email);
+				newCoach.setPassword(password);
+				newCoach.setCountry(country);
+				newCoach.setCity(city);
+				newCoach.setRole(role);
+
+				boolean successRegistry = neoLeagueArena.addCoach(newCoach);
+
+				if (successRegistry) {
+					view.showInfoMessage(view.getRegisterWindow(), "Coach registered successfully!");
+					view.getRegisterWindow().getRegisterFieldsPanel().resetFields();
+					view.getRegisterWindow().dispose();
+					view.getLoginWindow().setVisible(true);
+				} else {
+					view.showErrorMessage(view.getRegisterWindow(), "Coach with that email or ID already exists.");
+				}
+			}
+
 
 		} else if(command.equals(ButtonActionCommands.REGISTER_CANCEL_ACTION_COMMAND)) {
 			view.getRegisterWindow().dispose();
@@ -208,10 +283,19 @@ public class Controller implements ActionListener {
 			view.getMainWindow().getSideBarPanel().resetAllButtonStyles();
 			view.getMainWindow().getSideBarPanel().applyHighlightStyle(view.getMainWindow().getSideBarPanel().getTournamentsButton());
 		} else if (command.equals(ViewNames.TEAM_VIEW)) {
+			neoLeagueArena.loadTeams();
+			List<TeamDTO> teamsDTO = neoLeagueArena.getAllTeams();
+			
+			System.out.print("TEAMS SIZE: " + teamsDTO.size());
+			
 			view.getMainWindow().getMainContentPanel().getLayoutContentPanel().showView(ViewNames.TEAM_VIEW);
 			view.getMainWindow().getMainContentPanel().getTopBarPanel().getTitleLabel().setText(ViewNames.TEAM_VIEW);
+			
 			view.getMainWindow().getSideBarPanel().resetAllButtonStyles();
 			view.getMainWindow().getSideBarPanel().applyHighlightStyle(view.getMainWindow().getSideBarPanel().getTeamsButton());
+			
+			view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamsPanel().renderTeamCards(teamsDTO);
+			assignTeamtListeners();
 		} else if (command.equals(ViewNames.PLAYER_VIEW)) {
 			view.getMainWindow().getMainContentPanel().getLayoutContentPanel().showView(ViewNames.PLAYER_VIEW);
 			view.getMainWindow().getMainContentPanel().getTopBarPanel().getTitleLabel().setText(ViewNames.PLAYER_VIEW);
@@ -260,11 +344,16 @@ public class Controller implements ActionListener {
 	}
 
 	public void handleTeamCommand(String command) {
-		if (command.startsWith("TEAM_")) {
-			int teamId = Integer.parseInt(command.split("_")[1]) + 1;  
-			view.getMainWindow().getMainContentPanel().getLayoutContentPanel().showView(ViewNames.TEAM_DETAIL_VIEW);
-			view.getMainWindow().getMainContentPanel().getTopBarPanel().getTitleLabel().setText(ViewNames.TEAM_DETAIL_VIEW);
-			System.out.println("DETAIL TEAM " + teamId); 
+		if (command.startsWith(ButtonActionCommands.TEAM_DETAIL + "_")) {
+			int teamId = Integer.parseInt(command.substring(command.lastIndexOf("_") + 1));
+
+			TeamDTO foundTeam = neoLeagueArena.getTeamWithPlayers(teamId);
+
+			if (foundTeam != null) {
+				view.getMainWindow().getMainContentPanel().getLayoutContentPanel().showView(ViewNames.TEAM_DETAIL_VIEW);
+				view.getMainWindow().getMainContentPanel().getTopBarPanel().getTitleLabel().setText(ViewNames.TEAM_DETAIL_VIEW);
+				view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamDetailPanel().renderTeamDetail(foundTeam);
+			}
 		}
 	}
 
@@ -287,13 +376,42 @@ public class Controller implements ActionListener {
 			.showView(ViewNames.ADMIN_TOURNAMENT_VIEW);
 
 		} else if (command.startsWith(ButtonActionCommands.ADMIN_TEAM_ACTION_COMMAND)) {
+			neoLeagueArena.loadCoaches();
+			neoLeagueArena.loadPlayers();
+			neoLeagueArena.loadTeams();
+			
+			List<CoachDTO> coachesDTO = neoLeagueArena.getAllCoaches();
+			List<PlayerDTO> playersDTO = neoLeagueArena.getAllPlayers();
+			List<TeamDTO> teamsDTO = neoLeagueArena.getAllTeams();
+			
 			view.getMainWindow()
 			.getMainContentPanel()
 			.getLayoutContentPanel()
 			.getAdminPanel()
 			.getAdminContentPanel()
-			.showView(ViewNames.ADMIN_TEAM_VIEW);
-
+			.getTeamManagementPanel()
+			.getTeamFormPanel()
+			.getTeamFormFieldsPanel()
+			.setCoachesComboBox(coachesDTO);
+			
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamPlayerAssignmentPanel()
+			.loadPlayersComboBox(playersDTO);
+			
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamPlayerAssignmentPanel()
+			.loadTeamsComboBox(teamsDTO);
+			
 		} else if (command.startsWith(ButtonActionCommands.ADMIN_PLAYER_ACTION_COMMAND)) {
 			view.getMainWindow()
 			.getMainContentPanel()
@@ -335,5 +453,229 @@ public class Controller implements ActionListener {
 			.showView(ViewNames.ADMIN_GAME_VIEW);
 		}
 	}
+
+
+	public void handleAdminTeamCommand(String command) {
+		if (command.equals(ButtonActionCommands.ADMIN_CREATE_TEAM)) {
+
+			String idText = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getIdTextField()
+					.getText()
+					.trim();
+
+			String name = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getNameTextField()
+					.getText()
+					.trim();
+
+			String description = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getDescriptionTextArea()
+					.getText()
+					.trim();
+
+			String logoText = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getLogoTextField()
+					.getText()
+					.trim();
+
+			String scoreText = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getScoreTextField()
+					.getText()
+					.trim();
+
+			String rankingText = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getRankingTextField()
+					.getText()
+					.trim();
+
+			Integer coachId = view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel()
+					.getTeamFormPanel()
+					.getTeamFormFieldsPanel()
+					.getCoachComboBoxValue();
+
+
+			if (FieldValidator.isAnyEmpty(idText, name, description)) {
+				view.showErrorMessage(
+						view.getMainWindow()
+						.getMainContentPanel()
+						.getLayoutContentPanel()
+						.getAdminPanel()
+						.getAdminContentPanel()
+						.getTeamManagementPanel(),
+						"Please fill in all required fields.");
+				return;
+			}
+			
+			if (!FieldValidator.isInteger(idText)) {
+				view.showErrorMessage(
+						view.getMainWindow()
+						.getMainContentPanel()
+						.getLayoutContentPanel()
+						.getAdminPanel()
+						.getAdminContentPanel()
+						.getTeamManagementPanel(),
+						"The id field must be a numeric value");
+				return;
+			}
+
+			if (!scoreText.isEmpty() && !FieldValidator.isDecimal(scoreText)) {
+				view.showErrorMessage(
+						view.getMainWindow()
+						.getMainContentPanel()
+						.getLayoutContentPanel()
+						.getAdminPanel()
+						.getAdminContentPanel()
+						.getTeamManagementPanel(),
+						"Score must be a valid decimal number.");
+				return;
+			}
+
+			if (!rankingText.isEmpty() && !FieldValidator.isInteger(rankingText)) {
+				view.showErrorMessage(
+						view.getMainWindow()
+						.getMainContentPanel()
+						.getLayoutContentPanel()
+						.getAdminPanel()
+						.getAdminContentPanel()
+						.getTeamManagementPanel(),
+						"Ranking must be a valid integer.");
+				return;
+			}
+		
+			String logo = logoText.isEmpty() ? AssetPaths.TEAM_ICON : logoText;
+			int id = Integer.parseInt(idText);
+			double score = (scoreText != null && !scoreText.isEmpty()) ? Double.parseDouble(scoreText) : 0.0;
+			int ranking = (rankingText != null && !rankingText.isEmpty()) ? Integer.parseInt(rankingText) : 0;
+
+			CoachDTO coachDTO = new CoachDTO();
+			coachDTO.setId(coachId != null ? coachId : -1);
+			CoachDTO foundCoachDTO = neoLeagueArena.findCoach(coachDTO);
+			Integer lastTeamId = neoLeagueArena.getLastTeamId();
+
+			TeamDTO teamDTO = new TeamDTO();
+			teamDTO.setId(lastTeamId);
+			teamDTO.setName(name);
+			teamDTO.setDescription(description);
+			teamDTO.setLogo(logo);
+			teamDTO.setScore(score);
+			teamDTO.setRanking(ranking);	
+			teamDTO.setPlayerIds(null); 
+			teamDTO.setTournamentIds(null);
+
+			if(foundCoachDTO != null) {
+				String teamCoachName = foundCoachDTO.getFirstName() + " " + foundCoachDTO.getLastName();
+				teamDTO.setCoachId(foundCoachDTO.getId());
+				teamDTO.setCoachName(teamCoachName);
+			} else {
+				teamDTO.setCoachId(null);
+				teamDTO.setCoachName(null);		
+			}
+
+			boolean teamAddedSuccessfully = neoLeagueArena.addTeam(teamDTO);
+
+			if (teamAddedSuccessfully) {
+				view.showInfoMessage("Team added succesfully.");
+				view.getMainWindow()
+				.getMainContentPanel()
+				.getLayoutContentPanel()
+				.getAdminPanel()
+				.getAdminContentPanel()
+				.getTeamManagementPanel()
+				.getTeamFormPanel()
+				.getTeamFormFieldsPanel()
+				.resetFields();
+				
+				neoLeagueArena.loadTeams();
+				List<TeamDTO> teamsDTO = neoLeagueArena.getAllTeams();
+				view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamsPanel().renderTeamCards(teamsDTO);
+				view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamsPanel().revalidate();;
+				view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamsPanel().repaint();
+				
+				// view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getTeamsPanel().repaint();
+			} else {
+				view.showErrorMessage(view.getMainWindow()
+						.getMainContentPanel()
+						.getLayoutContentPanel()
+						.getAdminPanel()
+						.getAdminContentPanel()
+						.getTeamManagementPanel(),
+						"Error creating team");
+			}
+
+
+		} else if (command.equals(ButtonActionCommands.ADMIN_ADD_PLAYERS_TO_TEAM)) {
+			String teamText = (String) view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamPlayerAssignmentPanel()
+			.getTeamComboBox()
+			.getSelectedItem();
+
+			
+			String playerText = (String) view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamPlayerAssignmentPanel()
+			.getPlayerComboBox()
+			.getSelectedItem();
+
+		
+		}
+
+	}
+
 
 }

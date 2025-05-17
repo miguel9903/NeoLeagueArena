@@ -26,15 +26,39 @@ public class TeamManagementPanel extends JPanel {
 
         teamFormPanel = new TeamFormPanel();
         teamFormPanel.setPreferredSize(new Dimension(550, 500));
-        teamFormPanel.setBackground(Color.red);
         tabs.addTab("Manage Teams", teamFormPanel);
 
         teamPlayerAssignmentPanel = new TeamPlayerAssignmentPanel();
         teamPlayerAssignmentPanel.setPreferredSize(new Dimension(500, 500));
-        teamPlayerAssignmentPanel.setBackground(Color.red);
         tabs.addTab("Assign Players", teamPlayerAssignmentPanel);
         
         add(tabs);
     }
+
+	public JTabbedPane getTabs() {
+		return tabs;
+	}
+
+	public void setTabs(JTabbedPane tabs) {
+		this.tabs = tabs;
+	}
+
+	public TeamFormPanel getTeamFormPanel() {
+		return teamFormPanel;
+	}
+
+	public void setTeamFormPanel(TeamFormPanel teamFormPanel) {
+		this.teamFormPanel = teamFormPanel;
+	}
+
+	public TeamPlayerAssignmentPanel getTeamPlayerAssignmentPanel() {
+		return teamPlayerAssignmentPanel;
+	}
+
+	public void setTeamPlayerAssignmentPanel(TeamPlayerAssignmentPanel teamPlayerAssignmentPanel) {
+		this.teamPlayerAssignmentPanel = teamPlayerAssignmentPanel;
+	}
+    
+    
 	
 }

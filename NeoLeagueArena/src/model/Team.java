@@ -27,6 +27,19 @@ public class Team {
 		this.coach = null;
 	}
 	
+	public Team(int id, String name, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.logo = "";
+		this.score = 0.0;
+		this.ranking = 0;
+		this.players = new ArrayList<>();
+		this.tournaments = new ArrayList<>();
+		this.coach = null;
+	}
+	
 	public Team(int id, String name, String description, String logo, double score, int ranking, List<Player> players,
 			List<Tournament> tournaments, Coach coach) {
 		super();

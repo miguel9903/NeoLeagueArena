@@ -108,12 +108,28 @@ public class LayoutContentPanel extends JPanel {
 		this.tournamentPanel = tournamentPanel;
 	}
 
+	public TournamentDetailPanel getTournamentDetailPanel() {
+		return tournamentDetailPanel;
+	}
+
+	public void setTournamentDetailPanel(TournamentDetailPanel tournamentDetailPanel) {
+		this.tournamentDetailPanel = tournamentDetailPanel;
+	}
+
 	public TeamPanel getTeamsPanel() {
 		return teamsPanel;
 	}
 
 	public void setTeamsPanel(TeamPanel teamsPanel) {
 		this.teamsPanel = teamsPanel;
+	}
+
+	public TeamDetailPanel getTeamDetailPanel() {
+		return teamDetailPanel;
+	}
+
+	public void setTeamDetailPanel(TeamDetailPanel teamDetailPanel) {
+		this.teamDetailPanel = teamDetailPanel;
 	}
 
 	public PlayerPanel getPlayerPanel() {
@@ -180,11 +196,4 @@ public class LayoutContentPanel extends JPanel {
 		this.settingsPanel = settingsPanel;
 	}
 
-	public TeamDetailPanel getTeamDetailPanel() {
-		return teamDetailPanel;
-	}
-
-	public void setTeamDetailPanel(TeamDetailPanel teamDetailPanel) {
-		this.teamDetailPanel = teamDetailPanel;
-	}
 }

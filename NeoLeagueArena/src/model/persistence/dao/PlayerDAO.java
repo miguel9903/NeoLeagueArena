@@ -19,6 +19,7 @@ public class PlayerDAO implements InterfaceDAO<Player> {
 
     public void loadFromFile() {
         ArrayList<Player> loaded = fileManager.readFromFile(Player.class);
+        
         if (loaded != null) {
             players = loaded;
         }
@@ -43,7 +44,7 @@ public class PlayerDAO implements InterfaceDAO<Player> {
     }
 
     @Override
-    public boolean add(Player player) {
+    public boolean add(Player player) {       	
         if (find(player) == null) {
             players.add(player);
             saveToFile();
@@ -55,6 +56,14 @@ public class PlayerDAO implements InterfaceDAO<Player> {
     @Override
     public boolean delete(Player player) {
         Player found = find(player);
+    	System.out.print("Finded: " + find(player).toString() + ")n)n");
+
+    	  for (Player p : players) {
+              if (p.getId() == player.getId()) {
+              	System.out.print(p.toString());
+              }
+          }
+    	
         if (found != null) {
             players.remove(found);
             saveToFile();
@@ -78,7 +87,7 @@ public class PlayerDAO implements InterfaceDAO<Player> {
     @Override
     public Player find(Player player) {
         for (Player p : players) {
-            if (p.equals(player)) {
+            if (p.getId() == player.getId()) {
                 return p;
             }
         }

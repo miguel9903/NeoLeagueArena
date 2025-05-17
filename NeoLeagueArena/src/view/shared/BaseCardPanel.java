@@ -23,6 +23,7 @@ public abstract class BaseCardPanel extends JPanel {
 		setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createLineBorder(Color.decode(Colors.LIGHT_GRAY), 1));
+		initializeComponents();
 	}
 
 	public void initializeComponents() {

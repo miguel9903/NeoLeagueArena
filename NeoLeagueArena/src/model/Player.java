@@ -8,6 +8,10 @@ public class Player extends User {
 	private Team currentTeam;
 	private int experienceLevel;
 
+	public Player() {
+	    super();
+	}
+	
 	public Player(int id, String firstName, String lastName, String email, String password, String country, String city,
 			UserRole role) {
 		super(id, firstName, lastName, email, password, country, city, role);

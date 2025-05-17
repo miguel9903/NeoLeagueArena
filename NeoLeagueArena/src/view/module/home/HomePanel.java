@@ -28,7 +28,7 @@ public class HomePanel extends JPanel {
             cards[i] = card;  
         }
 
-        cardListPanel = new CardListPanel(cards); 
+        cardListPanel = new CardListPanel(3, 3); 
         cardListPanel.setBackground(Color.decode(Colors.LIGHT_GRAY));
 
         JScrollPane scrollPane = new JScrollPane(cardListPanel);

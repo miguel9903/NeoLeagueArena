@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -11,6 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.persistence.dto.CoachDTO;
+import model.persistence.dto.PlayerDTO;
+import model.persistence.dto.TeamDTO;
 import utils.Colors;
 import view.shared.FormFooterPanel;
 import view.shared.FormHeaderPanel;
@@ -85,5 +89,87 @@ public class TeamPlayerAssignmentPanel extends JPanel {
 		formFooterPanel.setPrimaryButtonActionCommand("ADD_PLAYER");
 		formFooterPanel.removeSecondaryButton();
 		formFooterPanel.removeTertiaryButton();
+	}
+	
+    public void loadPlayersComboBox(List<PlayerDTO> playerList) {
+    	playerComboBox.removeAllItems(); 
+        
+        for (PlayerDTO playerDTO : playerList) {
+            String playerhName = playerDTO.getId() + " - " + playerDTO.getFirstName() + " " + playerDTO.getLastName() + " (" + playerDTO.getNickName() + ")";
+            playerComboBox.addItem(playerhName);
+        }
+    }
+
+    public void loadTeamsComboBox(List<TeamDTO> teamList) {
+    	teamComboBox.removeAllItems(); 
+        
+        for (TeamDTO teamDTO : teamList) {
+            String teamName = teamDTO.getId() + " - " + teamDTO.getName();
+            teamComboBox.addItem(teamName);
+        }
+    }
+
+	public FormHeaderPanel getFormHeaderPanel() {
+		return formHeaderPanel;
+	}
+
+	public void setFormHeaderPanel(FormHeaderPanel formHeaderPanel) {
+		this.formHeaderPanel = formHeaderPanel;
+	}
+
+	public FormFooterPanel getFormFooterPanel() {
+		return formFooterPanel;
+	}
+
+	public void setFormFooterPanel(FormFooterPanel formFooterPanel) {
+		this.formFooterPanel = formFooterPanel;
+	}
+
+	public JPanel getPlayersPanel() {
+		return playersPanel;
+	}
+
+	public void setPlayersPanel(JPanel playersPanel) {
+		this.playersPanel = playersPanel;
+	}
+
+	public JLabel getTeamLabel() {
+		return teamLabel;
+	}
+
+	public void setTeamLabel(JLabel teamLabel) {
+		this.teamLabel = teamLabel;
+	}
+
+	public JComboBox<String> getTeamComboBox() {
+		return teamComboBox;
+	}
+
+	public void setTeamComboBox(JComboBox<String> teamComboBox) {
+		this.teamComboBox = teamComboBox;
+	}
+
+	public JLabel getPlayerLabel() {
+		return playerLabel;
+	}
+
+	public void setPlayerLabel(JLabel playerLabel) {
+		this.playerLabel = playerLabel;
+	}
+
+	public JComboBox<String> getPlayerComboBox() {
+		return playerComboBox;
+	}
+
+	public void setPlayerComboBox(JComboBox<String> playerComboBox) {
+		this.playerComboBox = playerComboBox;
+	}
+
+	public JButton getAddPlayerButton() {
+		return addPlayerButton;
+	}
+
+	public void setAddPlayerButton(JButton addPlayerButton) {
+		this.addPlayerButton = addPlayerButton;
 	}
 }

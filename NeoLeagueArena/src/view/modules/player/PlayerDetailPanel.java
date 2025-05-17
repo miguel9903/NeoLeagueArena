@@ -102,7 +102,7 @@ public class PlayerDetailPanel extends JPanel {
             playerCards.add(card);
         }
 
-        playerListPanel = new CardListPanel(playerCards.toArray(new JPanel[0]));
+        playerListPanel = new CardListPanel(3, 3);
 
         JScrollPane scrollPane = new JScrollPane(playerListPanel);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());

@@ -13,6 +13,8 @@ public abstract class User {
 	protected String city;
 	protected UserRole role;
 	
+	public User() { }
+	
 	public User(int id, String firstName, String lastName, String email, String password, String country, String city,
 			UserRole role) {
 		super();

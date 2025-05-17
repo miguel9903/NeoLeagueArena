@@ -78,7 +78,7 @@ public class CoachDAO implements InterfaceDAO<Coach> {
     @Override
     public Coach find(Coach coach) {
         for (Coach c : coaches) {
-            if (c.equals(coach)) {
+            if (c.getId() == coach.getId()) {
                 return c;
             }
         }

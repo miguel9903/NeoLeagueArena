@@ -13,6 +13,8 @@ public class TeamCardPanel extends BaseCardPanel {
 	private JLabel nameLabel;
 	private JLabel membersLabel;
 	private JLabel coachLabel;
+	private JLabel scoreLabel;
+	private JLabel rankingLabel;
 	private JButton detailButton;
 
 	@Override
@@ -31,9 +33,13 @@ public class TeamCardPanel extends BaseCardPanel {
 	protected void buildInfo() {
 		membersLabel = new JLabel("Members: 5");
 		coachLabel = new JLabel("Coach: Alex");
+		scoreLabel = new JLabel("Score: : 5");
+		rankingLabel = new JLabel("Ranking: #5");
 
 		infoPanel.add(membersLabel);
 		infoPanel.add(coachLabel);
+		infoPanel.add(scoreLabel);
+		infoPanel.add(rankingLabel);
 	}
 
 	@Override
@@ -81,6 +87,22 @@ public class TeamCardPanel extends BaseCardPanel {
 		this.coachLabel = coachLabel;
 	}
 
+	public JLabel getScoreLabel() {
+		return scoreLabel;
+	}
+
+	public void setScoreLabel(JLabel scoreLabel) {
+		this.scoreLabel = scoreLabel;
+	}
+
+	public JLabel getRankingLabel() {
+		return rankingLabel;
+	}
+
+	public void setRankingLabel(JLabel rankingLabel) {
+		this.rankingLabel = rankingLabel;
+	}
+
 	public JButton getDetailButton() {
 		return detailButton;
 	}
@@ -88,4 +110,5 @@ public class TeamCardPanel extends BaseCardPanel {
 	public void setDetailButton(JButton detailButton) {
 		this.detailButton = detailButton;
 	}
+
 }

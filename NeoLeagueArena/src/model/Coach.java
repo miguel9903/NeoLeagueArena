@@ -8,6 +8,10 @@ public class Coach extends User {
 
 	private List<Team> teams;
 
+	public Coach() {
+		super();
+	}
+	
 	public Coach(int id, String firstName, String lastName, String email, String password, String country, String city,
 			UserRole role, List<Team> teams) {
 		super(id, firstName, lastName, email, password, country, city, role);

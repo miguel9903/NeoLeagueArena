@@ -7,12 +7,20 @@ import java.util.List;
 import model.Admin;
 import model.Coach;
 import model.Player;
+import model.Team;
+import model.Game;
+
 import model.persistence.dto.AdminDTO;
 import model.persistence.dto.CoachDTO;
 import model.persistence.dto.PlayerDTO;
+import model.persistence.dto.TeamDTO;
+import model.persistence.dto.GameDTO;
+
 import model.persistence.mapper.AdminMapper;
 import model.persistence.mapper.CoachMapper;
 import model.persistence.mapper.PlayerMapper;
+import model.persistence.mapper.TeamMapper;
+import model.persistence.mapper.GameMapper;
 
 public class FileManager<T> {
 
@@ -56,6 +64,16 @@ public class FileManager<T> {
                 List<PlayerDTO> dtos = PlayerMapper.convertPlayerListToPlayerDTOList(players);
                 outputStream.writeObject(dtos);
 
+            } else if (className == Team.class) {
+                ArrayList<Team> teams = (ArrayList<Team>) (ArrayList<?>) objects;
+                List<TeamDTO> dtos = TeamMapper.convertTeamListToTeamDTOList(teams);
+                outputStream.writeObject(dtos);
+
+            } else if (className == Game.class) {
+                ArrayList<Game> games = (ArrayList<Game>) (ArrayList<?>) objects;
+                List<GameDTO> dtos = GameMapper.convertGameListToGameDTOList(games);
+                outputStream.writeObject(dtos);
+
             } else {
                 outputStream.writeObject(objects);
             }
@@ -73,24 +91,36 @@ public class FileManager<T> {
         if (fileLocation.length() != 0) {
             try {
                 inputStream = new ObjectInputStream(new FileInputStream(fileLocation));
-                
+
                 if (className == Admin.class) {
                     List<AdminDTO> dtos = (List<AdminDTO>) inputStream.readObject();
                     List<Admin> adminList = AdminMapper.convertAdminDTOListToAdminList(dtos);
                     objects = new ArrayList<>((List<T>) adminList);
-                } 
-                else if (className == Player.class) {
+
+                } else if (className == Player.class) {
                     List<PlayerDTO> dtos = (List<PlayerDTO>) inputStream.readObject();
                     List<Player> playerList = PlayerMapper.convertPlayerDTOListToPlayerList(dtos);
                     objects = new ArrayList<>((List<T>) playerList);
-                }
-                else if (className == Coach.class) {
+
+                } else if (className == Coach.class) {
                     List<CoachDTO> dtos = (List<CoachDTO>) inputStream.readObject();
                     List<Coach> coachList = CoachMapper.convertCoachDTOListToCoachList(dtos);
                     objects = new ArrayList<>((List<T>) coachList);
+
+                } else if (className == Team.class) {
+                    List<TeamDTO> dtos = (List<TeamDTO>) inputStream.readObject();
+                    List<Team> teamList = TeamMapper.convertTeamDTOListToTeamList(dtos);
+                    objects = new ArrayList<>((List<T>) teamList);
+
+                } else if (className == Game.class) {
+                    List<GameDTO> dtos = (List<GameDTO>) inputStream.readObject();
+                    List<Game> gameList = GameMapper.convertGameDTOListToGameList(dtos);
+                    objects = new ArrayList<>((List<T>) gameList);
+
                 }
-                
+
                 inputStream.close();
+
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

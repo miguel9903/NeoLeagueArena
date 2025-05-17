@@ -11,13 +11,13 @@ import javax.swing.table.DefaultTableModel;
 
 import view.shared.FormHeaderPanel;
 
-public class CoachTablePanel extends JPanel {
+public class TeamTablePanel extends JPanel {
 	
     private JTable playersTable;
     private DefaultTableModel tableModel;
 	private FormHeaderPanel formHeaderPanel;
 
-    public CoachTablePanel() {
+    public TeamTablePanel() {
     	setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		initializeComponents();

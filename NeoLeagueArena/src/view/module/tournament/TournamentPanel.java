@@ -32,7 +32,7 @@ public class TournamentPanel extends JPanel {
             tournamentCards.add(card);
         }
 
-        tournamentListPanel = new CardListPanel(tournamentCards.toArray(new JPanel[0]));
+        tournamentListPanel = new CardListPanel(3, 3);
         tournamentListPanel.setBackground(Color.decode(Colors.LIGHT_GRAY));
 
         JScrollPane scrollPane = new JScrollPane(tournamentListPanel);

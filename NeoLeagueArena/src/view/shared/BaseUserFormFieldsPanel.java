@@ -83,11 +83,22 @@ public class BaseUserFormFieldsPanel extends JPanel {
 				UserRole.ADMIN.getDisplayName(), 
 				UserRole.PLAYER.getDisplayName(), 
 				UserRole.COACH.getDisplayName()};
-		
+
 		roleLabel = new JLabel("Role:");
 		roleComboBox = new JComboBox<String>(userRoles);
-		add(roleLabel);
-		add(roleComboBox);
+		// add(roleLabel);
+		// add(roleComboBox);
+	}
+
+	public void resetFields() {
+		idTextField.setText("");
+		firstNameTextField.setText("");
+		lastNameTextField.setText("");
+		emailTextField.setText("");
+		passwordTextField.setText("");
+		countryTextField.setText("");
+		cityTextField.setText("");
+		roleComboBox.setSelectedIndex(0);
 	}
 
 	public JLabel getIdLabel() {
@@ -225,5 +236,5 @@ public class BaseUserFormFieldsPanel extends JPanel {
 	public void setRoleComboBox(JComboBox<String> roleComboBox) {
 		this.roleComboBox = roleComboBox;
 	}
-	
+
 }

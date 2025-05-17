@@ -12,13 +12,14 @@ public class RegisterFieldsPanel extends BaseUserFormFieldsPanel {
     @Override
     public void initializeComponents() {
         super.initializeComponents();
-        setUserRoles();
+        // loadUserRolesComboBox();
     }
     
-    public void setUserRoles() {
+    public void loadUserRolesComboBox() {
         String[] filteredRoles = new String[] {
-            UserRole.PLAYER.getDisplayName(),
-            UserRole.COACH.getDisplayName()
+            "Role 1",
+            "Role 2",
+            "Role 3"
         };
         
         getRoleComboBox().setModel(new DefaultComboBoxModel<>(filteredRoles));

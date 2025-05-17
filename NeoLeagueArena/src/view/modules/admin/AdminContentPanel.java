@@ -28,4 +28,22 @@ public class AdminContentPanel extends JPanel {
 	public void showView(String viewName) {
 		cardLayout.show(this, viewName);
 	}
+
+	public CardLayout getCardLayout() {
+		return cardLayout;
+	}
+
+	public void setCardLayout(CardLayout cardLayout) {
+		this.cardLayout = cardLayout;
+	}
+
+	public TeamManagementPanel getTeamManagementPanel() {
+		return teamManagementPanel;
+	}
+
+	public void setTeamManagementPanel(TeamManagementPanel teamManagementPanel) {
+		this.teamManagementPanel = teamManagementPanel;
+	}
+	
+	
 }
