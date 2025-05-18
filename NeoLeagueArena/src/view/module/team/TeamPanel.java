@@ -16,6 +16,7 @@ import model.persistence.dto.TeamDTO; // Asegúrate de importar el DTO correctam
 public class TeamPanel extends JPanel {
 
 	private JPanel teamListPanel;
+	private	JScrollPane scrollPanel;
 	private List<TeamCardPanel> teamCards;
 	private JLabel emptyMessageLabel;
 
@@ -27,7 +28,7 @@ public class TeamPanel extends JPanel {
 
 	public void initializeCompoenents() {
 		teamCards = new ArrayList<>();
-		
+
 		emptyMessageLabel = new JLabel(WordingMessages.EMPTY_TEAM_LIST_MESSAGE);
 		emptyMessageLabel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
@@ -37,43 +38,40 @@ public class TeamPanel extends JPanel {
 	}
 
 	public void renderTeamCards(List<TeamDTO> teamDTOs) {
-		if (teamCards.size() == 0) {
-			emptyMessageLabel.setText("");
-			remove(emptyMessageLabel);	
-		}
+	    removeAll();
 
-		int rowCount = teamCards.size() > 3 ? 0 : 3;
-		teamListPanel = new JPanel();
-		teamListPanel.setLayout(new GridLayout(0,2, 10, 10));
-		
-		teamCards.clear();      
-		List<JPanel> panels = new ArrayList<JPanel>();
+	    teamCards.clear();
 
-		for (TeamDTO currentDTO: teamDTOs) {
-			String coachName = currentDTO.getCoachName() != null ? currentDTO.getCoachName() : WordingMessages.NOT_ASIGN_TEAM_COACH;
-			String buttonActionCommand = ButtonActionCommands.TEAM_DETAIL + "_" + currentDTO.getId();
+	    if (teamDTOs == null || teamDTOs.isEmpty()) {
+	        emptyMessageLabel.setText(WordingMessages.EMPTY_TEAM_LIST_MESSAGE);
+	        add(emptyMessageLabel, BorderLayout.NORTH);
+	    } else {
+	        teamListPanel = new JPanel();
+	        teamListPanel.setLayout(new GridLayout(0, 2, 10, 10));
 
-			TeamCardPanel card = new TeamCardPanel();
-			card.getNameLabel().setText(currentDTO.getName());
-			card.getMembersLabel().setText("Members: " + currentDTO.getPlayerIds().size());
-			card.getCoachLabel().setText("Coach: " + coachName);
-			card.getScoreLabel().setText("Score: " + currentDTO.getScore());
-			card.getRankingLabel().setText("Ranking: #" + currentDTO.getRanking());
-			card.getDetailButton().setActionCommand(buttonActionCommand);			
-			teamCards.add(card);
-			teamListPanel.add(card);
-			panels.add(card);
-		}
+	        for (TeamDTO currentDTO : teamDTOs) {
+	            String coachName = currentDTO.getCoachName() != null ? currentDTO.getCoachName() : WordingMessages.NOT_ASIGN_TEAM_COACH;
+	            String buttonActionCommand = ButtonActionCommands.TEAM_DETAIL_ACTION_COMMAND + "_" + currentDTO.getId();
 
-		//teamListPanel.setCards(panels);
+	            TeamCardPanel card = new TeamCardPanel();
+	            card.getNameLabel().setText(currentDTO.getName());
+	            card.getMembersLabel().setText("Members: " + currentDTO.getPlayerIds().size());
+	            card.getCoachLabel().setText("Coach: " + coachName);
+	            card.getScoreLabel().setText("Score: " + currentDTO.getScore());
+	            card.getRankingLabel().setText("Ranking: #" + currentDTO.getRanking());
+	            card.getDetailButton().setActionCommand(buttonActionCommand);			
 
-		JScrollPane scrollPane = new JScrollPane(teamListPanel);
-		scrollPane.setBorder(BorderFactory.createEmptyBorder());
-		scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-		add(scrollPane, BorderLayout.CENTER);
+	            teamCards.add(card);
+	            teamListPanel.add(card);
+	        }
 
-		add(teamListPanel, BorderLayout.CENTER);
-		repaintView();
+	        scrollPanel = new JScrollPane(teamListPanel);
+	        scrollPanel.setBorder(BorderFactory.createEmptyBorder());
+	        scrollPanel.getVerticalScrollBar().setUnitIncrement(16);
+	        add(scrollPanel, BorderLayout.CENTER);
+	    }
+
+	    repaintView();
 	}
 
 	public void repaintView() {
@@ -81,12 +79,11 @@ public class TeamPanel extends JPanel {
 		repaint();  
 	}
 
-	// Getters y Setters
-	public CardListPanel getTeamListPanel() {
+	public JPanel getTeamListPanel() {
 		return teamListPanel;
 	}
 
-	public void setTeamListPanel(CardListPanel teamListPanel) {
+	public void setTeamListPanel(JPanel teamListPanel) {
 		this.teamListPanel = teamListPanel;
 	}
 
@@ -96,5 +93,13 @@ public class TeamPanel extends JPanel {
 
 	public void setTeamCards(List<TeamCardPanel> teamCards) {
 		this.teamCards = teamCards;
+	}
+
+	public JLabel getEmptyMessageLabel() {
+		return emptyMessageLabel;
+	}
+
+	public void setEmptyMessageLabel(JLabel emptyMessageLabel) {
+		this.emptyMessageLabel = emptyMessageLabel;
 	}
 }

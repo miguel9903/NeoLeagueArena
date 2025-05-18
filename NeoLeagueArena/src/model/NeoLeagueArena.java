@@ -26,7 +26,6 @@ public class NeoLeagueArena {
 	private CoachDAO coachDAO;
 	private TeamDAO teamDAO;
 
-
 	public NeoLeagueArena() {
 		adminDAO = new AdminDAO();
 		playerDAO = new PlayerDAO();
@@ -153,9 +152,7 @@ public class NeoLeagueArena {
 		return coachDTOs;
 	}
 	
-	public CoachDTO findCoach(CoachDTO coachDTO) {
-		if (coachDTO.getId() == -1) return null;
-		
+	public CoachDTO findCoach(CoachDTO coachDTO) {		
 		Coach coach = CoachMapper.convertCoachDTOToCoach(coachDTO);
 		Coach foundCoach = coachDAO.find(coach);
 		CoachDTO foundTeamDTO = CoachMapper.convertCoachToCoachDTO(foundCoach);
@@ -226,6 +223,28 @@ public class NeoLeagueArena {
 	    
 	    return foundTeam;
 	}
+	
+	public boolean teamNameExists(String teamName) {
+		for (TeamDTO team : getAllTeams()) {
+			if (team.getName().equalsIgnoreCase(teamName.trim())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public boolean teamNameExists(String teamName, Integer currentTeamId) {
+		for (TeamDTO team : getAllTeams()) {
+			if (!team.getId().equals(currentTeamId) &&
+			    team.getName().trim().equalsIgnoreCase(teamName.trim())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
 
 	public void loadTeams() {
 		teamDAO.loadFromFile();

@@ -43,6 +43,8 @@ public class TeamFormFieldsPanel extends JPanel {
 	public void initializeComponents() {
 		idLabel = new JLabel("ID* :");
 		idTextField = new JTextField();
+		idTextField.setEditable(false);
+		idTextField.setEnabled(false);
 		add(idLabel);
 		add(idTextField);
 
@@ -92,7 +94,6 @@ public class TeamFormFieldsPanel extends JPanel {
 
 		for (CoachDTO coachDTO : coachList) {
 			String coachName = coachDTO.getId() + " - " + coachDTO.getFirstName() + " " + coachDTO.getLastName();
-			System.out.print(coachName);
 			coachComboBox.addItem(coachName);
 		}
 	}

@@ -55,6 +55,10 @@ public class FormHeaderPanel extends JPanel {
 		searchButton.setActionCommand(command);
 	}
 
+	public void setSearchButtonText(String text) {
+		searchButton.setText(text);	
+	}
+	
 	public JPanel getSearchPanel() {
 		return searchPanel;
 	}

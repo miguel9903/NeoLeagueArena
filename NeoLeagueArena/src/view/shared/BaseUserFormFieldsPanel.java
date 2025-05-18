@@ -86,8 +86,8 @@ public class BaseUserFormFieldsPanel extends JPanel {
 
 		roleLabel = new JLabel("Role:");
 		roleComboBox = new JComboBox<String>(userRoles);
-		// add(roleLabel);
-		// add(roleComboBox);
+		add(roleLabel);
+		add(roleComboBox);
 	}
 
 	public void resetFields() {

@@ -13,12 +13,20 @@ public class FieldValidator {
 		return value != null && value.matches("\\d+");
 	}
 
+	public static boolean isEmpty(String value) {
+	    return value == null || value.trim().isEmpty();
+	}
+	
 	public static boolean isNotEmpty(String value) {
 		return value != null && !value.trim().isEmpty();
 	}
 
 	public static boolean isInDecimalRange(double value, double min, double max) {
 		return value >= min && value <= max;
+	}
+	
+	public static boolean isAlphanumeric(String input) {
+	    return input != null && input.matches("^[a-zA-Z0-9 ]+$");
 	}
 
 	public static boolean isInIntegerRange(int value, int min, int max) {

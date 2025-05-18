@@ -40,4 +40,9 @@ public class MainWindow extends JFrame {
 		return mainContentPanel;
 	}
 	
+	public void repaintView() {
+		revalidate();
+		repaint();
+	}
+	
 }

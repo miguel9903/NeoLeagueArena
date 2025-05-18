@@ -110,6 +110,13 @@ public class TeamDTO implements Serializable {
 		this.players = players;
 	}
 
+	@Override
+	public String toString() {
+		return "TeamDTO [id=" + id + ", name=" + name + ", description=" + description + ", logo=" + logo + ", score="
+				+ score + ", ranking=" + ranking + ", playerIds=" + playerIds + ", tournamentIds=" + tournamentIds
+				+ ", coachId=" + coachId + ", coachName=" + coachName + ", players=" + players + "]";
+	}
+
 	
 
 	

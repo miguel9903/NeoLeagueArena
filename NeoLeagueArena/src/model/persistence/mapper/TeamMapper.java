@@ -17,6 +17,9 @@ public class TeamMapper {
         team.setId(dto.getId());
         team.setName(dto.getName());
         team.setDescription(dto.getDescription());
+        team.setLogo(dto.getLogo());
+        team.setScore(dto.getScore());
+        team.setRanking(dto.getRanking());
 
         if (dto.getCoachId() != null) {
             Coach coach = new Coach();
@@ -48,7 +51,10 @@ public class TeamMapper {
         dto.setId(team.getId());
         dto.setName(team.getName());
         dto.setDescription(team.getDescription());
-
+        dto.setLogo(team.getLogo());
+        dto.setScore(team.getScore());
+        dto.setRanking(team.getRanking());
+        
         if (team.getCoach() != null) {
             dto.setCoachId(team.getCoach().getId());
             dto.setCoachName(team.getCoach().getFirstName());

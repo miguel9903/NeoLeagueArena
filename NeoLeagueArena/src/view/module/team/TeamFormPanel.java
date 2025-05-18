@@ -42,14 +42,21 @@ public class TeamFormPanel extends JPanel {
 
 	public void setupFormControls() {
 		formHeaderPanel.getFormTitleLabel().setText("Manage Teams");
+		
+		formHeaderPanel.setSearchButtonText("Search");
+		formHeaderPanel.setSearchButtonActionCommand(ButtonActionCommands.ADMIN_SEARCH_TEAM_ACTION_COMMAND);
+		
 		formFooterPanel.setPrimaryButtonText("CREATE");
-		formFooterPanel.setPrimaryButtonActionCommand(ButtonActionCommands.ADMIN_CREATE_TEAM);
+		formFooterPanel.setPrimaryButtonActionCommand(ButtonActionCommands.ADMIN_CREATE_TEAM_ACTION_COMMAND);
 		
 		formFooterPanel.setSecondaryButtonText("UPDATE");
-		formFooterPanel.setSecondaryButtonActionCommand(ButtonActionCommands.ADMIN_UPDATE_TEAM);
+		formFooterPanel.setSecondaryButtonActionCommand(ButtonActionCommands.ADMIN_UPDATE_TEAM_ACTION_COMMAND);
 		
 		formFooterPanel.setTertiaryButtonText("CANCEL");
-		formFooterPanel.setTertiaryButtonActionCommand(ButtonActionCommands.ADMIN_DELETE_TEAM);
+		formFooterPanel.setTertiaryButtonActionCommand(ButtonActionCommands.ADMIN_DELETE_TEAM_ACTION_COMMAND);
+		
+		formFooterPanel.setQuaternaryButtonText("RESET DATA");
+		formFooterPanel.setQuaternaryButtonActionCommand(ButtonActionCommands.ADMIN_RESET_TEAM_ACTION_COMMAND);
 	}
 
 	public FormHeaderPanel getFormHeaderPanel() {

@@ -19,6 +19,7 @@ public class TeamDAO implements InterfaceDAO<Team> {
 
 	public void loadFromFile() {
 		ArrayList<Team> loaded = fileManager.readFromFile(Team.class);
+		
 		if (loaded != null) {
 			teams = loaded;
 		}

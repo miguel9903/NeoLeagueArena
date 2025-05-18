@@ -42,4 +42,9 @@ public class MainContentPanel extends JPanel {
 	public void setLayoutContentPanel(LayoutContentPanel layoutContentPanel) {
 		this.layoutContentPanel = layoutContentPanel;
 	}
+	
+	public void repaintView() {
+		revalidate();
+		repaint();
+	}
 }

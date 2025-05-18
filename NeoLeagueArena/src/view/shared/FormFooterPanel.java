@@ -10,7 +10,8 @@ public class FormFooterPanel extends JPanel {
 	private JButton primaryButton;
 	private JButton secondaryButton;
 	private JButton tertiaryButton;
-
+	private JButton quaternaryButton;
+	
 	public FormFooterPanel() {
 		setLayout(new FlowLayout());
 		initializeComponents();
@@ -28,27 +29,36 @@ public class FormFooterPanel extends JPanel {
 		tertiaryButton = new JButton("TERTIARY");
 		tertiaryButton.setActionCommand("TERTIARY_BUTTON");
 		add(tertiaryButton);
+		
+		quaternaryButton = new JButton("QUATERNARY");
+		quaternaryButton.setActionCommand("QUATERNARY_BUTTON");
+		add(quaternaryButton);
+	}
+
+	public void removePrimaryButton() {
+		remove(primaryButton);
+		revalidate();
+		repaint();
+	}
+
+	public void removeSecondaryButton() {
+		remove(secondaryButton);
+		revalidate();
+		repaint();
+	}
+
+	public void removeTertiaryButton() {
+		remove(tertiaryButton);
+		revalidate();
+		repaint();
 	}
 	
+	public void removeQuaternaryButton() {
+		remove(quaternaryButton);
+		revalidate();
+		repaint();
+	}
 
-    public void removePrimaryButton() {
-        remove(primaryButton);
-        revalidate();
-        repaint();
-    }
-
-    public void removeSecondaryButton() {
-        remove(secondaryButton);
-        revalidate();
-        repaint();
-    }
-
-    public void removeTertiaryButton() {
-        remove(tertiaryButton);
-        revalidate();
-        repaint();
-    }
-    
 	public void setPrimaryButtonActionCommand(String command) {
 		primaryButton.setActionCommand(command);
 	}
@@ -66,13 +76,21 @@ public class FormFooterPanel extends JPanel {
 	}
 
 	public void setTertiaryButtonActionCommand(String command) {
-	    tertiaryButton.setActionCommand(command);
+		tertiaryButton.setActionCommand(command);
 	}
 
 	public void setTertiaryButtonText(String text) {
-	    tertiaryButton.setText(text);
+		tertiaryButton.setText(text);
 	}
 	
+	public void setQuaternaryButtonActionCommand(String command) {
+		quaternaryButton.setActionCommand(command);
+	}
+
+	public void setQuaternaryButtonText(String text) {
+		quaternaryButton.setText(text);
+	}
+
 	public JButton getPrimaryButton() {
 		return primaryButton;
 	}
@@ -87,5 +105,21 @@ public class FormFooterPanel extends JPanel {
 
 	public void setSecondaryButton(JButton secondaryButton) {
 		this.secondaryButton = secondaryButton;
+	}
+	
+	public JButton getTertiaryButton() {
+		return tertiaryButton;
+	}
+
+	public void setTertiaryButton(JButton tertiaryButton) {
+		this.tertiaryButton = tertiaryButton;
+	}
+
+	public JButton getQuaternaryButton() {
+		return quaternaryButton;
+	}
+
+	public void setQuaternaryButton(JButton quaternaryButton) {
+		this.quaternaryButton = quaternaryButton;
 	}
 }

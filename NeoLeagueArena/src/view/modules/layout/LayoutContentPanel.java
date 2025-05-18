@@ -80,6 +80,11 @@ public class LayoutContentPanel extends JPanel {
 		add(settingsPanel, ViewNames.SETTINGS_VIEW);
 	}
 
+	public void repaintView() {
+		revalidate();
+		repaint();
+	}
+	
 	public void showView(String viewName) {
 		cardLayout.show(this, viewName);
 	}
