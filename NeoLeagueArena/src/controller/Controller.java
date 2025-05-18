@@ -148,7 +148,7 @@ public class Controller implements ActionListener {
 		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamFormPanel().getFormFooterPanel().getSecondaryButton().addActionListener(this);
 		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamFormPanel().getFormFooterPanel().getTertiaryButton().addActionListener(this);
 		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamFormPanel().getFormFooterPanel().getQuaternaryButton().addActionListener(this);
-		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamPlayerAssignmentPanel().getAddPlayerButton().addActionListener(this);
+		view.getMainWindow().getMainContentPanel().getLayoutContentPanel().getAdminPanel().getAdminContentPanel().getTeamManagementPanel().getTeamPlayerAssignmentPanel().getFormFooterPanel().getPrimaryButton().addActionListener(this);
 	}
 
 	@Override
@@ -379,7 +379,7 @@ public class Controller implements ActionListener {
 			.showView(ViewNames.ADMIN_TOURNAMENT_VIEW);
 
 		} else if (command.startsWith(ButtonActionCommands.ADMIN_TEAM_ACTION_COMMAND)) {
-			
+
 			neoLeagueArena.loadCoaches();
 			neoLeagueArena.loadPlayers();
 			neoLeagueArena.loadTeams();
@@ -415,7 +415,34 @@ public class Controller implements ActionListener {
 			.getTeamManagementPanel()
 			.getTeamPlayerAssignmentPanel()
 			.loadTeamsComboBox(teamsDTO);
-			
+
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamTablePanel()
+			.loadTableData(teamsDTO);
+
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamPlayerAssignmentPanel()
+			.loadPlayersComboBox(playersDTO);
+
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamPlayerAssignmentPanel()
+			.loadTeamsComboBox(teamsDTO);
+
 			view.getMainWindow()
 			.getMainContentPanel()
 			.getLayoutContentPanel()
@@ -470,24 +497,24 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	
+
 	// ==========================================
 	// ====  ADMIN COMMANDS: TEAM MANAGEMENT ====
 	// ==========================================
 	public void handleAdminTeamCommand(String command) {
-	    if (command.equals(ButtonActionCommands.ADMIN_CREATE_TEAM_ACTION_COMMAND)) {
-	        handleCreateTeam();
-	    } else if (command.equals(ButtonActionCommands.ADMIN_ADD_PLAYERS_TO_TEAM_ACTION_COMMAND)) {
-	    	handleAddPlayersToTeam();
-	    } else if (command.equals(ButtonActionCommands.ADMIN_SEARCH_TEAM_ACTION_COMMAND)) {
-	        handleSearchTeam();
-	    } else if (command.equals(ButtonActionCommands.ADMIN_UPDATE_TEAM_ACTION_COMMAND)) {
-	        handleUpdateTeam();
-	    } else if (command.equals(ButtonActionCommands.ADMIN_DELETE_TEAM_ACTION_COMMAND)) {
-	        handleDeleteTeam();
-	    } else if (command.equals(ButtonActionCommands.ADMIN_RESET_TEAM_ACTION_COMMAND)) {
-	        handleResetTeamFields();
-	    }
+		if (command.equals(ButtonActionCommands.ADMIN_CREATE_TEAM_ACTION_COMMAND)) {
+			handleCreateTeam();
+		} else if (command.equals(ButtonActionCommands.ADMIN_ADD_PLAYERS_TO_TEAM_ACTION_COMMAND)) {
+			handleAddPlayersToTeam();
+		} else if (command.equals(ButtonActionCommands.ADMIN_SEARCH_TEAM_ACTION_COMMAND)) {
+			handleSearchTeam();
+		} else if (command.equals(ButtonActionCommands.ADMIN_UPDATE_TEAM_ACTION_COMMAND)) {
+			handleUpdateTeam();
+		} else if (command.equals(ButtonActionCommands.ADMIN_DELETE_TEAM_ACTION_COMMAND)) {
+			handleDeleteTeam();
+		} else if (command.equals(ButtonActionCommands.ADMIN_RESET_TEAM_ACTION_COMMAND)) {
+			handleResetTeamFields();
+		}
 	}
 
 	private void handleCreateTeam() {
@@ -559,7 +586,7 @@ public class Controller implements ActionListener {
 				.getTeamManagementPanel()
 				.getTeamFormPanel()
 				.getTeamFormFieldsPanel()
-				.getCoachComboBoxValue();
+				.getCoachComboBoxIdValue();
 
 		if (FieldValidator.isAnyEmpty(name, description)) {
 			view.showErrorMessage(
@@ -686,6 +713,19 @@ public class Controller implements ActionListener {
 			.getTeamFormPanel()
 			.getTeamFormFieldsPanel()
 			.resetFields();
+
+			neoLeagueArena.loadTeams();
+			List<TeamDTO> teamsDTO = neoLeagueArena.getAllTeams();
+
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamTablePanel()
+			.loadTableData(teamsDTO);
+
 		} else {
 			view.showErrorMessage(view.getMainWindow()
 					.getMainContentPanel()
@@ -698,25 +738,66 @@ public class Controller implements ActionListener {
 	}
 
 	private void handleAddPlayersToTeam() {
-		String teamText = (String) view.getMainWindow()
+		Integer playerId = view.getMainWindow()
 				.getMainContentPanel()
 				.getLayoutContentPanel()
 				.getAdminPanel()
 				.getAdminContentPanel()
 				.getTeamManagementPanel()
 				.getTeamPlayerAssignmentPanel()
-				.getTeamComboBox()
-				.getSelectedItem();
+				.getPlayerComboBoxIdValue();
 
-		String playerText = (String) view.getMainWindow()
+		Integer teamId = view.getMainWindow()
 				.getMainContentPanel()
 				.getLayoutContentPanel()
 				.getAdminPanel()
 				.getAdminContentPanel()
 				.getTeamManagementPanel()
 				.getTeamPlayerAssignmentPanel()
-				.getPlayerComboBox()
-				.getSelectedItem();
+				.getTeamComboBoxIdValue();
+		
+		List<Integer> playerIds = new ArrayList<>();
+		playerIds.add(playerId);
+		
+		TeamDTO teamDTO = new TeamDTO();
+		teamDTO.setId(teamId);
+		TeamDTO foundTeamDTO = neoLeagueArena.findTeam(teamDTO);
+		TeamDTO newTeamDTO = neoLeagueArena.findTeam(teamDTO);
+		newTeamDTO.setPlayerIds(playerIds);
+		
+		PlayerDTO playerDTO = new PlayerDTO();
+		playerDTO.setId(playerId);
+		PlayerDTO foundPlayerDTO = neoLeagueArena.findPlayer(playerDTO);
+		PlayerDTO newPlayerDTO = neoLeagueArena.findPlayer(playerDTO);
+		newPlayerDTO
+		
+		
+
+
+		
+		boolean playerAssignedToTeam = neoLeagueArena.updateTeam(foundTeamDTO, foundTeamDTO);
+
+		if (playerAssignedToTeam) {
+			view.showInfoMessage("Player assigned to team successfully.");
+			view.getMainWindow()
+			.getMainContentPanel()
+			.getLayoutContentPanel()
+			.getAdminPanel()
+			.getAdminContentPanel()
+			.getTeamManagementPanel()
+			.getTeamFormPanel()
+			.getTeamFormFieldsPanel()
+			.resetFields();
+
+		} else {
+			view.showErrorMessage(view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel(),
+					"Error assigning players to team.");
+		}
 	}
 
 	private void handleSearchTeam() {
@@ -868,7 +949,7 @@ public class Controller implements ActionListener {
 					);
 		}
 	}
-	
+
 	private void handleUpdateTeam() {
 		String id = view.getMainWindow()
 				.getMainContentPanel()
@@ -950,7 +1031,7 @@ public class Controller implements ActionListener {
 				.getTeamManagementPanel()
 				.getTeamFormPanel()
 				.getTeamFormFieldsPanel()
-				.getCoachComboBoxValue();
+				.getCoachComboBoxIdValue();
 
 		String searchText = (String) view.getMainWindow()
 				.getMainContentPanel()

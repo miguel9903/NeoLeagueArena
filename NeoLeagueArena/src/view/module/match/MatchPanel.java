@@ -51,7 +51,7 @@ public class MatchPanel extends JPanel {
 	        teamListPanel.setLayout(new GridLayout(0, 2, 10, 10));
 
 	        for (TeamDTO currentDTO : teamDTOs) {
-	            String coachName = currentDTO.getCoachName() != null ? currentDTO.getCoachName() : WordingMessages.NOT_ASIGN_TEAM_COACH;
+	            String coachName = currentDTO.getCoachName() != null ? currentDTO.getCoachName() : WordingMessages.NOT_ASIGN_MESSAGE;
 	            String buttonActionCommand = ButtonActionCommands.TEAM_DETAIL_ACTION_COMMAND + "_" + currentDTO.getId();
 
 	            TeamCardPanel card = new TeamCardPanel();

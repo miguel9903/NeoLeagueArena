@@ -2,6 +2,7 @@ package view.module.team;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -9,55 +10,58 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import model.persistence.dto.TeamDTO;
 import view.shared.FormHeaderPanel;
 
 public class TeamTablePanel extends JPanel {
-	
-    private JTable playersTable;
+
+    private JTable teamsTable;
     private DefaultTableModel tableModel;
-	private FormHeaderPanel formHeaderPanel;
+    private FormHeaderPanel formHeaderPanel;
 
     public TeamTablePanel() {
-    	setLayout(new BorderLayout());
-		setBackground(Color.WHITE);
-		initializeComponents();
-		setupFormControls();
-    }
-    
-    public void initializeComponents() {
-		formHeaderPanel = new FormHeaderPanel();
-		formHeaderPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
-    	
         setLayout(new BorderLayout());
         setBackground(Color.WHITE);
+        initializeComponents();
+        setupFormControls();
+    }
+
+    private void initializeComponents() {
+        formHeaderPanel = new FormHeaderPanel();
+        formHeaderPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 
         String[] columns = {
-            "ID", "Name", "Last Name", "Email", "Country",
-            "City", "Role", "Nickname", "Team", "Experience"
+            "ID", "Name", "Score", "Ranking", "Coach Name"
         };
 
-        String[][] exampleData = {
-            {"101", "Juan", "Pérez", "juan@correo.com", "Colombia", "Bogotá", "Player", "ShadowX", "Team A", "3"},
-            {"102", "Ana", "López", "ana@correo.com", "México", "CDMX", "Administrator", "An4Play", "Team B", "5"},
-            {"103", "Luis", "Gómez", "luis@correo.com", "Perú", "Lima", "Player", "LGkiller", "Team A", "2"}
-        };
+        tableModel = new DefaultTableModel(columns, 0);
 
-        tableModel = new DefaultTableModel(exampleData, columns) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false; // Celdas no editables
-            }
-        };
+        teamsTable = new JTable(tableModel);
+        teamsTable.setFillsViewportHeight(true);
+        teamsTable.setDefaultEditor(Object.class, null); 
 
-        playersTable = new JTable(tableModel);
-        playersTable.setFillsViewportHeight(true);
-        JScrollPane scrollPane = new JScrollPane(playersTable);
+        JScrollPane scrollPane = new JScrollPane(teamsTable);
 
         add(formHeaderPanel, BorderLayout.NORTH);
         add(scrollPane, BorderLayout.CENTER);
     }
-    
-    public void setupFormControls() {
-		formHeaderPanel.getFormTitleLabel().setText("List Teams");
-	}
+
+    private void setupFormControls() {
+        formHeaderPanel.getFormTitleLabel().setText("List Teams");
+    }
+
+    public void loadTableData(List<TeamDTO> teamDTOs) {
+        tableModel.setRowCount(0); 
+
+        for (TeamDTO teamDTO : teamDTOs) {
+            Object[] rowData = {
+                teamDTO.getId(),
+                teamDTO.getName(),
+                teamDTO.getScore(),
+                teamDTO.getRanking(),
+                teamDTO.getCoachName()
+            };
+            tableModel.addRow(rowData);
+        }
+    }
 }

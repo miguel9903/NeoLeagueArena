@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 import model.enums.UserRole;
 
 public class Player extends User {
@@ -13,12 +15,13 @@ public class Player extends User {
 	}
 	
 	public Player(int id, String firstName, String lastName, String email, String password, String country, String city,
-			UserRole role) {
-		super(id, firstName, lastName, email, password, country, city, role);
+			LocalDate birthDate, UserRole role) {
+		super(id, firstName, lastName, email, password, country, city, birthDate, role);
 	}
-	
-	public Player(int id, String firstName, String lastName, String email, String password, String country, String city) {
-		super(id, firstName, lastName, email, password, country, city, UserRole.PLAYER);
+
+	public Player(int id, String firstName, String lastName, String email, String password, String country, String city,
+			LocalDate birthDate) {
+		super(id, firstName, lastName, email, password, country, city, birthDate, UserRole.PLAYER);
 	}
 
 	public String getNickName() {

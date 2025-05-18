@@ -1,8 +1,11 @@
 package model.persistence.mapper;
 
 import model.Admin;
+import model.enums.UserRole;
 import model.persistence.dto.AdminDTO;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,23 +13,30 @@ public class AdminMapper {
 
     public static Admin convertAdminDTOToAdmin(AdminDTO dto) {
         if (dto == null) return null;
-
-        return new Admin(
-                dto.getId(),
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getEmail(),
-                dto.getPassword(),
-                dto.getCountry(),
-                dto.getCity()
-        );
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        Admin admin = new Admin();
+        admin.setId(dto.getId());
+        admin.setFirstName(dto.getFirstName());
+        admin.setLastName(dto.getLastName());
+        admin.setEmail(dto.getEmail());
+        admin.setPassword(dto.getPassword());
+        admin.setCountry(dto.getCountry());
+        admin.setCity(dto.getCity());
+        admin.setRole(UserRole.ADMIN); 
+        
+        if (dto.getBirthDate() != null && !dto.getBirthDate().isEmpty()) {
+            admin.setBirthDate(LocalDate.parse(dto.getBirthDate(), formatter));
+        }
+        
+        return admin;
     }
 
     public static AdminDTO convertAdminToAdminDTO(Admin admin) {
         if (admin == null) return null;
-
+        
         AdminDTO dto = new AdminDTO();
-
         dto.setId(admin.getId());
         dto.setFirstName(admin.getFirstName());
         dto.setLastName(admin.getLastName());
@@ -34,6 +44,14 @@ public class AdminMapper {
         dto.setPassword(admin.getPassword());
         dto.setCountry(admin.getCountry());
         dto.setCity(admin.getCity());
+        dto.setRole(admin.getRole().getDisplayName());
+        dto.setAge(admin.getAge());
+        
+        if (admin.getBirthDate() != null) {
+            dto.setBirthDate(admin.getBirthDate().toString()); 
+        } else {
+            dto.setBirthDate(null);
+        }
 
         return dto;
     }

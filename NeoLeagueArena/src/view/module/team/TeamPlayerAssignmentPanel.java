@@ -15,6 +15,7 @@ import javax.swing.border.EmptyBorder;
 import model.persistence.dto.CoachDTO;
 import model.persistence.dto.PlayerDTO;
 import model.persistence.dto.TeamDTO;
+import utils.ButtonActionCommands;
 import utils.Colors;
 import view.shared.FormFooterPanel;
 import view.shared.FormHeaderPanel;
@@ -26,10 +27,9 @@ public class TeamPlayerAssignmentPanel extends JPanel {
 
 	private JPanel playersPanel;
 	private JLabel teamLabel;
-	private JComboBox<String> teamComboBox;
 	private JLabel playerLabel;
+	private JComboBox<String> teamComboBox;
 	private JComboBox<String> playerComboBox;
-	private JButton addPlayerButton;
 
 	public TeamPlayerAssignmentPanel() {
 		setLayout(new BorderLayout());
@@ -51,18 +51,9 @@ public class TeamPlayerAssignmentPanel extends JPanel {
 
 		teamLabel = new JLabel("Team:");
 		teamComboBox = new JComboBox<>();
-		teamComboBox.addItem("Team Alpha");
-		teamComboBox.addItem("Team Beta");
 
 		playerLabel = new JLabel("Player:");
 		playerComboBox = new JComboBox<>();
-		playerComboBox.addItem("Juan Pérez");
-		playerComboBox.addItem("María Gómez");
-		playerComboBox.addItem("Carlos López");
-		playerComboBox.addItem("Ana Torres");
-
-		addPlayerButton = new JButton("ADD PLAYER");
-		addPlayerButton.setActionCommand("ADD_PLAYER");
 
 		JLabel EMPTY_LABEL = new JLabel("");
 		playersPanel.add(teamLabel);
@@ -86,9 +77,10 @@ public class TeamPlayerAssignmentPanel extends JPanel {
 	public void setupFormControls() {
 		formHeaderPanel.getFormTitleLabel().setText("Add Players");
 		formFooterPanel.setPrimaryButtonText("ADD PLAYER");
-		formFooterPanel.setPrimaryButtonActionCommand("ADD_PLAYER");
+		formFooterPanel.setPrimaryButtonActionCommand(ButtonActionCommands.ADMIN_ADD_PLAYERS_TO_TEAM_ACTION_COMMAND);
 		formFooterPanel.removeSecondaryButton();
 		formFooterPanel.removeTertiaryButton();
+		formFooterPanel.removeQuaternaryButton();
 	}
 	
     public void loadPlayersComboBox(List<PlayerDTO> playerList) {
@@ -107,6 +99,20 @@ public class TeamPlayerAssignmentPanel extends JPanel {
             String teamName = teamDTO.getId() + " - " + teamDTO.getName();
             teamComboBox.addItem(teamName);
         }
+    }
+
+    public Integer getTeamComboBoxIdValue() {
+        String teamText = (String) teamComboBox.getSelectedItem();
+        return (teamText != null && !teamText.isEmpty() && teamText.contains("-")) 
+                ? Integer.parseInt(teamText.substring(0, teamText.indexOf(" -"))) 
+                : null;
+    }
+
+    public Integer getPlayerComboBoxIdValue() {
+        String playerText = (String) playerComboBox.getSelectedItem();
+        return (playerText != null && !playerText.isEmpty() && playerText.contains("-")) 
+                ? Integer.parseInt(playerText.substring(0, playerText.indexOf(" -"))) 
+                : null;
     }
 
 	public FormHeaderPanel getFormHeaderPanel() {
@@ -141,20 +147,20 @@ public class TeamPlayerAssignmentPanel extends JPanel {
 		this.teamLabel = teamLabel;
 	}
 
-	public JComboBox<String> getTeamComboBox() {
-		return teamComboBox;
-	}
-
-	public void setTeamComboBox(JComboBox<String> teamComboBox) {
-		this.teamComboBox = teamComboBox;
-	}
-
 	public JLabel getPlayerLabel() {
 		return playerLabel;
 	}
 
 	public void setPlayerLabel(JLabel playerLabel) {
 		this.playerLabel = playerLabel;
+	}
+
+	public JComboBox<String> getTeamComboBox() {
+		return teamComboBox;
+	}
+
+	public void setTeamComboBox(JComboBox<String> teamComboBox) {
+		this.teamComboBox = teamComboBox;
 	}
 
 	public JComboBox<String> getPlayerComboBox() {
@@ -164,12 +170,6 @@ public class TeamPlayerAssignmentPanel extends JPanel {
 	public void setPlayerComboBox(JComboBox<String> playerComboBox) {
 		this.playerComboBox = playerComboBox;
 	}
+    
 
-	public JButton getAddPlayerButton() {
-		return addPlayerButton;
-	}
-
-	public void setAddPlayerButton(JButton addPlayerButton) {
-		this.addPlayerButton = addPlayerButton;
-	}
 }

@@ -140,8 +140,6 @@ public class TeamDetailPanel extends JPanel {
 				playerCards.add(card);
 			}
 		}
-
-	//	playerListPanel.initializeComponents(playerCards.toArray(new JPanel[0]));
 	}
 
 	public JPanel getPlayerLabelPanel() {

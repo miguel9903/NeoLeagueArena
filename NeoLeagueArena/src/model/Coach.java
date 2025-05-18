@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import model.enums.UserRole;
@@ -13,14 +14,13 @@ public class Coach extends User {
 	}
 	
 	public Coach(int id, String firstName, String lastName, String email, String password, String country, String city,
-			UserRole role, List<Team> teams) {
-		super(id, firstName, lastName, email, password, country, city, role);
-		this.teams = teams;
+			LocalDate birthDate, UserRole role) {
+		super(id, firstName, lastName, email, password, country, city, birthDate, role);
 	}
 
-	public Coach(int id, String firstName, String lastName, String email, String password, String country, String city, List<Team> teams) {
-		super(id, firstName, lastName, email, password, country, city, UserRole.COACH);
-		this.teams = teams;
+	public Coach(int id, String firstName, String lastName, String email, String password, String country, String city,
+			LocalDate birthDate) {
+		super(id, firstName, lastName, email, password, country, city, birthDate, UserRole.COACH);
 	}
 
 	public List<Team> getTeams() {
@@ -31,5 +31,3 @@ public class Coach extends User {
 		this.teams = teams;
 	}
 }
-//Intento1212sjhsjsdsdssdssddssddssh
-//Intento1

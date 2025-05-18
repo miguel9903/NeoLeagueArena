@@ -109,7 +109,7 @@ public class TeamFormFieldsPanel extends JPanel {
 		playersComboBox.setSelectedIndex(0);
 	}
 
-	public Integer getCoachComboBoxValue() {
+	public Integer getCoachComboBoxIdValue() {
 		String coachText = (String) coachComboBox.getSelectedItem();
 		return (coachText != null && !coachText.isEmpty() && coachText.contains("-")) 
 				? Integer.parseInt(coachText.substring(0, coachText.indexOf(" -"))) 

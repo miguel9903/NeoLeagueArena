@@ -4,6 +4,7 @@ import model.Coach;
 import model.Team;
 import model.persistence.dto.CoachDTO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +23,20 @@ public class CoachMapper {
             }
         }
 
-        Coach coach = new Coach(
-                dto.getId(),
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getEmail(),
-                dto.getPassword(),
-                dto.getCountry(),
-                dto.getCity(),
-                teams
-        );
-
+        Coach coach = new Coach();
+        coach.setId(dto.getId());
+        coach.setFirstName(dto.getFirstName());
+        coach.setLastName(dto.getLastName());
+        coach.setEmail(dto.getEmail());
+        coach.setPassword(dto.getPassword());
+        coach.setCountry(dto.getCountry());
+        coach.setCity(dto.getCity());
+        coach.setTeams(teams);
+        
+        if (dto.getBirthDate() != null && !dto.getBirthDate().isEmpty()) {
+            coach.setBirthDate(LocalDate.parse(dto.getBirthDate())); 
+        }
+        
         return coach;
     }
 
@@ -47,7 +51,8 @@ public class CoachMapper {
         dto.setPassword(coach.getPassword());
         dto.setCountry(coach.getCountry());
         dto.setCity(coach.getCity());
-        dto.setRole("COACH");
+        dto.setRole(coach.getRole().getDisplayName());
+        dto.setAge(coach.getAge());
 
         if (coach.getTeams() != null) {
             List<Integer> teamIds = new ArrayList<>();
@@ -59,6 +64,12 @@ public class CoachMapper {
             }
             
             dto.setTeamIds(teamIds);
+        }
+        
+        if (coach.getBirthDate() != null) {
+            dto.setBirthDate(coach.getBirthDate().toString());
+        } else {
+            dto.setBirthDate(null);
         }
 
         return dto;

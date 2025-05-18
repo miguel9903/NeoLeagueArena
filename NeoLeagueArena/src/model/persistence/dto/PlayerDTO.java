@@ -2,6 +2,8 @@ package model.persistence.dto;
 
 import java.io.Serializable;
 
+import model.enums.UserRole;
+
 public class PlayerDTO extends UserDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -9,19 +11,7 @@ public class PlayerDTO extends UserDTO implements Serializable {
 	private String nickName;
 	private int experienceLevel;
 	private Integer currentTeamId;
-
-	public PlayerDTO() {
-		super();
-		setRole("PLAYER");
-	}
-
-	public PlayerDTO(int id, String firstName, String lastName, String email, String password,
-			String country, String city, String nickName, int experienceLevel, Integer currentTeamId) {
-		super(id, firstName, lastName, email, password, country, city, "PLAYER");
-		this.nickName = nickName;
-		this.experienceLevel = experienceLevel;
-		this.currentTeamId = currentTeamId;
-	}
+	private String currentTeamName;
 
 	public String getNickName() {
 		return nickName;
@@ -45,6 +35,18 @@ public class PlayerDTO extends UserDTO implements Serializable {
 
 	public void setCurrentTeamId(Integer currentTeamId) {
 		this.currentTeamId = currentTeamId;
+	}
+	
+	public String getCurrentTeamName() {
+		return currentTeamName;
+	}
+
+	public void setCurrentTeamName(String currentTeamName) {
+		this.currentTeamName = currentTeamName;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

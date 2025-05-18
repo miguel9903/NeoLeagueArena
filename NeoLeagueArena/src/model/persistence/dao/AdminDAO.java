@@ -1,5 +1,6 @@
 package model.persistence.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -42,7 +43,8 @@ public class AdminDAO implements InterfaceDAO<Admin> {
             "admin",
             "123",
             "Colombia",
-            "Bogotá D.C."
+            "Bogotá D.C.",
+            LocalDate.of(1990, 1, 1)
         );
 
         admins.add(defaultAdmin);

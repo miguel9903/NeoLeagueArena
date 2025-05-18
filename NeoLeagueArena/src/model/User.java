@@ -1,5 +1,8 @@
 package model;
 
+import java.time.LocalDate;
+import java.time.Period;
+
 import model.enums.UserRole;
 
 public abstract class User {
@@ -11,12 +14,13 @@ public abstract class User {
 	protected String password;
 	protected String country;
 	protected String city;
+	private LocalDate birthDate;
 	protected UserRole role;
 	
 	public User() { }
 	
 	public User(int id, String firstName, String lastName, String email, String password, String country, String city,
-			UserRole role) {
+			LocalDate birthDate, UserRole role) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -25,6 +29,7 @@ public abstract class User {
 		this.password = password;
 		this.country = country;
 		this.city = city;
+		this.birthDate = birthDate;
 		this.role = role;
 	}
 
@@ -32,6 +37,11 @@ public abstract class User {
 	    return this.email.equals(email) && this.password.equals(password);
 	}
 	
+	public int getAge() {
+	    if (birthDate == null)  return -1; 
+	    return Period.between(birthDate, LocalDate.now()).getYears();
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -88,6 +98,14 @@ public abstract class User {
 		this.city = city;
 	}
 
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
 	public UserRole getRole() {
 		return role;
 	}
@@ -95,4 +113,5 @@ public abstract class User {
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
+	
 }

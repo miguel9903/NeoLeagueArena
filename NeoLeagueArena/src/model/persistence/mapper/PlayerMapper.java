@@ -1,28 +1,33 @@
 package model.persistence.mapper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import model.Player;
 import model.Team;
+import model.enums.UserRole;
 import model.persistence.dto.PlayerDTO;
 
 public class PlayerMapper {
 
     public static Player convertPlayerDTOToPlayer(PlayerDTO dto) {
         if (dto == null) return null;
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-        Player player = new Player(
-                dto.getId(),
-                dto.getFirstName(),
-                dto.getLastName(),
-                dto.getEmail(),
-                dto.getPassword(),
-                dto.getCountry(),
-                dto.getCity()
-        );
-        player.setNickName(dto.getNickName());
+        Player player = new Player();
+        player.setId(dto.getId());
+        player.setFirstName(dto.getFirstName());
+        player.setLastName(dto.getLastName());
+        player.setEmail(dto.getEmail());
+        player.setPassword(dto.getPassword());
+        player.setCountry(dto.getCountry());
+        player.setCity(dto.getCity());
+        player.setNickName(dto.getNickName()); 
         player.setExperienceLevel(dto.getExperienceLevel());
+        player.setRole(UserRole.PLAYER);
 
         if (dto.getCurrentTeamId() != null) {
             Team team = new Team();
@@ -30,6 +35,10 @@ public class PlayerMapper {
             player.setCurrentTeam(team);
         }
 
+        if (dto.getBirthDate() != null && !dto.getBirthDate().isEmpty()) {
+        	player.setBirthDate(LocalDate.parse(dto.getBirthDate(), formatter));
+        }
+        
         return player;
     }
 
@@ -44,13 +53,20 @@ public class PlayerMapper {
         dto.setPassword(player.getPassword());
         dto.setCountry(player.getCountry());
         dto.setCity(player.getCity());
-        dto.setRole("PLAYER");
-
+        dto.setCurrentTeamName(player.getCurrentTeam().getName());
+        dto.setRole(UserRole.PLAYER.getDisplayName());
         dto.setNickName(player.getNickName());
         dto.setExperienceLevel(player.getExperienceLevel());
+        dto.setAge(player.getAge());
 
         if (player.getCurrentTeam() != null) {
             dto.setCurrentTeamId(player.getCurrentTeam().getId());
+        }
+        
+        if (player.getBirthDate() != null) {
+            dto.setBirthDate(player.getBirthDate().toString());
+        } else {
+            dto.setBirthDate(null);
         }
 
         return dto;
