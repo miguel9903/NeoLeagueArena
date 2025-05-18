@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.NeoLeagueArena;
+import model.enums.UserRole;
 import model.persistence.dto.AdminDTO;
 import model.persistence.dto.CoachDTO;
 import model.persistence.dto.PlayerDTO;
@@ -184,7 +185,7 @@ public class Controller implements ActionListener {
 				view.getLoginWindow().getCredentialsPanel().resetFields();
 				view.getMainWindow().getMainContentPanel().getTopBarPanel().getUserNameLabel().setText(loggedUserName);
 
-				if (!"ADMIN".equalsIgnoreCase(loggedUser.getRole())) {
+				if (loggedUser.getRole() != UserRole.ADMIN.getDisplayName()) {
 					view.getMainWindow().getSideBarPanel().showAdminsButton(false);
 				}
 
@@ -213,10 +214,16 @@ public class Controller implements ActionListener {
 			String password = new String(view.getRegisterWindow().getRegisterFieldsPanel().getPasswordTextField().getPassword());
 			String country = view.getRegisterWindow().getRegisterFieldsPanel().getCountryTextField().getText().trim();
 			String city = view.getRegisterWindow().getRegisterFieldsPanel().getCityTextField().getText().trim();
+			String birthDate = view.getRegisterWindow().getRegisterFieldsPanel().getDateBirthDateTextField().getText().trim();
 			String role = (String) view.getRegisterWindow().getRegisterFieldsPanel().getRoleComboBox().getSelectedItem();
 
-			if (FieldValidator.isAnyEmpty(id, firstName, lastName, email, password, country, city, role)) {
+			if (FieldValidator.isAnyEmpty(id, firstName, lastName, email, password, country, city, birthDate, role)) {
 				view.showErrorMessage(view.getRegisterWindow(), "Please fill in all fields.");
+				return;
+			}
+
+			if (!FieldValidator.isValidDateFormat(birthDate)) {
+				view.showErrorMessage(view.getRegisterWindow(), "Invalid birth date format. Use yyyy-MM-dd.");
 				return;
 			}
 
@@ -231,6 +238,7 @@ public class Controller implements ActionListener {
 				newPlayer.setCountry(country);
 				newPlayer.setCity(city);
 				newPlayer.setRole(role);
+				newPlayer.setBirthDate(birthDate);
 
 				boolean successRegistry = neoLeagueArena.addPlayer(newPlayer);
 
@@ -254,6 +262,7 @@ public class Controller implements ActionListener {
 				newCoach.setCountry(country);
 				newCoach.setCity(city);
 				newCoach.setRole(role);
+				newCoach.setBirthDate(birthDate); 
 
 				boolean successRegistry = neoLeagueArena.addCoach(newCoach);
 
@@ -501,6 +510,7 @@ public class Controller implements ActionListener {
 	// ==========================================
 	// ====  ADMIN COMMANDS: TEAM MANAGEMENT ====
 	// ==========================================
+
 	public void handleAdminTeamCommand(String command) {
 		if (command.equals(ButtonActionCommands.ADMIN_CREATE_TEAM_ACTION_COMMAND)) {
 			handleCreateTeam();
@@ -577,7 +587,7 @@ public class Controller implements ActionListener {
 				.getRankingTextField()
 				.getText()
 				.trim();
-
+		
 		Integer coachId = view.getMainWindow()
 				.getMainContentPanel()
 				.getLayoutContentPanel()
@@ -738,6 +748,46 @@ public class Controller implements ActionListener {
 	}
 
 	private void handleAddPlayersToTeam() {
+		String selectedPlayer = (String) view.getMainWindow()
+				.getMainContentPanel()
+				.getLayoutContentPanel()
+				.getAdminPanel()
+				.getAdminContentPanel()
+				.getTeamManagementPanel()
+				.getTeamPlayerAssignmentPanel()
+				.getPlayerComboBox()
+				.getSelectedItem();
+
+		String selectedTeam = (String) view.getMainWindow()
+				.getMainContentPanel()
+				.getLayoutContentPanel()
+				.getAdminPanel()
+				.getAdminContentPanel()
+				.getTeamManagementPanel()
+				.getTeamPlayerAssignmentPanel()
+				.getTeamComboBox()
+				.getSelectedItem();
+
+		if(selectedPlayer == null || selectedPlayer.isEmpty()) {
+			view.showErrorMessage(view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel(),
+					 "Please select a player before assigning to a team.");
+		}
+		
+		if(selectedTeam == null || selectedTeam.isEmpty()) {
+			view.showErrorMessage(view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel(),
+					"Please select a team before assigning a player.");
+		}
+		
 		Integer playerId = view.getMainWindow()
 				.getMainContentPanel()
 				.getLayoutContentPanel()
@@ -756,26 +806,42 @@ public class Controller implements ActionListener {
 				.getTeamPlayerAssignmentPanel()
 				.getTeamComboBoxIdValue();
 		
-		List<Integer> playerIds = new ArrayList<>();
-		playerIds.add(playerId);
-		
 		TeamDTO teamDTO = new TeamDTO();
 		teamDTO.setId(teamId);
+
 		TeamDTO foundTeamDTO = neoLeagueArena.findTeam(teamDTO);
 		TeamDTO newTeamDTO = neoLeagueArena.findTeam(teamDTO);
+
+		List<Integer> playerIds = foundTeamDTO.getPlayerIds();
+		playerIds.add(playerId);
+
 		newTeamDTO.setPlayerIds(playerIds);
-		
-		PlayerDTO playerDTO = new PlayerDTO();
-		playerDTO.setId(playerId);
-		PlayerDTO foundPlayerDTO = neoLeagueArena.findPlayer(playerDTO);
-		PlayerDTO newPlayerDTO = neoLeagueArena.findPlayer(playerDTO);
-		newPlayerDTO
-		
-		
 
+		if (neoLeagueArena.isPlayerInTeam(playerId, teamId)) {
+			view.showErrorMessage(view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel(),
+					"Player is already assigned to this team..");
 
-		
-		boolean playerAssignedToTeam = neoLeagueArena.updateTeam(foundTeamDTO, foundTeamDTO);
+			return;
+		}
+
+		if (neoLeagueArena.isPlayerAssignedToAnyTeam(playerId)) {
+			view.showErrorMessage(view.getMainWindow()
+					.getMainContentPanel()
+					.getLayoutContentPanel()
+					.getAdminPanel()
+					.getAdminContentPanel()
+					.getTeamManagementPanel(),
+					"Player is already assigned to another team.");
+
+			return;
+		}
+
+		boolean playerAssignedToTeam = neoLeagueArena.updateTeam(foundTeamDTO, newTeamDTO);
 
 		if (playerAssignedToTeam) {
 			view.showInfoMessage("Player assigned to team successfully.");

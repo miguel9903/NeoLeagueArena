@@ -2,9 +2,11 @@ package model.persistence.mapper;
 
 import model.Coach;
 import model.Team;
+import model.enums.UserRole;
 import model.persistence.dto.CoachDTO;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class CoachMapper {
         if (dto == null) return null;
 
         List<Team> teams = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
         if (dto.getTeamIds() != null) {
             for (Integer id : dto.getTeamIds()) {
@@ -30,11 +33,12 @@ public class CoachMapper {
         coach.setEmail(dto.getEmail());
         coach.setPassword(dto.getPassword());
         coach.setCountry(dto.getCountry());
+        coach.setRole(UserRole.COACH); 
         coach.setCity(dto.getCity());
         coach.setTeams(teams);
         
         if (dto.getBirthDate() != null && !dto.getBirthDate().isEmpty()) {
-            coach.setBirthDate(LocalDate.parse(dto.getBirthDate())); 
+            coach.setBirthDate(LocalDate.parse(dto.getBirthDate(), formatter)); 
         }
         
         return coach;
@@ -51,7 +55,7 @@ public class CoachMapper {
         dto.setPassword(coach.getPassword());
         dto.setCountry(coach.getCountry());
         dto.setCity(coach.getCity());
-        dto.setRole(coach.getRole().getDisplayName());
+        dto.setRole(UserRole.COACH.getDisplayName());
         dto.setAge(coach.getAge());
 
         if (coach.getTeams() != null) {

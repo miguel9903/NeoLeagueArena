@@ -15,7 +15,7 @@ public class PlayerMapper {
     public static Player convertPlayerDTOToPlayer(PlayerDTO dto) {
         if (dto == null) return null;
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Player player = new Player();
         player.setId(dto.getId());
@@ -32,6 +32,7 @@ public class PlayerMapper {
         if (dto.getCurrentTeamId() != null) {
             Team team = new Team();
             team.setId(dto.getCurrentTeamId());
+            team.setName(dto.getCurrentTeamName());
             player.setCurrentTeam(team);
         }
 
@@ -53,16 +54,20 @@ public class PlayerMapper {
         dto.setPassword(player.getPassword());
         dto.setCountry(player.getCountry());
         dto.setCity(player.getCity());
-        dto.setCurrentTeamName(player.getCurrentTeam().getName());
+        
+        if (player.getCurrentTeam() != null) {
+            dto.setCurrentTeamId(player.getCurrentTeam().getId());
+            dto.setCurrentTeamName(player.getCurrentTeam().getName());
+        } else {
+            dto.setCurrentTeamId(null);
+            dto.setCurrentTeamName(null); 
+        }
+
         dto.setRole(UserRole.PLAYER.getDisplayName());
         dto.setNickName(player.getNickName());
         dto.setExperienceLevel(player.getExperienceLevel());
         dto.setAge(player.getAge());
 
-        if (player.getCurrentTeam() != null) {
-            dto.setCurrentTeamId(player.getCurrentTeam().getId());
-        }
-        
         if (player.getBirthDate() != null) {
             dto.setBirthDate(player.getBirthDate().toString());
         } else {
@@ -71,6 +76,7 @@ public class PlayerMapper {
 
         return dto;
     }
+
     
     public static List<PlayerDTO> convertPlayerListToPlayerDTOList(List<Player> players) {
         List<PlayerDTO> dtos = new ArrayList<>();

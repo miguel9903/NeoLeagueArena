@@ -14,7 +14,7 @@ public class AdminMapper {
     public static Admin convertAdminDTOToAdmin(AdminDTO dto) {
         if (dto == null) return null;
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         
         Admin admin = new Admin();
         admin.setId(dto.getId());
@@ -44,7 +44,7 @@ public class AdminMapper {
         dto.setPassword(admin.getPassword());
         dto.setCountry(admin.getCountry());
         dto.setCity(admin.getCity());
-        dto.setRole(admin.getRole().getDisplayName());
+        dto.setRole(UserRole.ADMIN.getDisplayName());
         dto.setAge(admin.getAge());
         
         if (admin.getBirthDate() != null) {

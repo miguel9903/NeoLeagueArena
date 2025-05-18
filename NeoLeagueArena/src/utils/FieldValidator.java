@@ -33,6 +33,10 @@ public class FieldValidator {
 		return value >= min && value <= max;
 	}
 
+	public static boolean isValidDateFormat(String date) {
+	    return isValidDate(date, "yyyy-MM-dd");
+	}
+	
 	public static boolean isValidDate(String date, String pattern) {
 		if (date == null || pattern == null) return false;
 

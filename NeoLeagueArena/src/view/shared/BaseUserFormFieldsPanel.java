@@ -26,18 +26,19 @@ public class BaseUserFormFieldsPanel extends JPanel {
 	protected JLabel countryLabel;
 	protected JLabel cityLabel;
 	protected JLabel roleLabel;
+	protected JLabel dateBirthDateLabel;
 	protected JLabel formTitleLabel;
 
 	protected JTextField idTextField;
 	protected JTextField firstNameTextField;
 	protected JTextField lastNameTextField;
 	protected JTextField emailTextField;
+	protected JTextField dateBirthDateTextField;
 	protected JPasswordField passwordTextField;
 	protected JTextField countryTextField;
 	protected JTextField cityTextField;
 	protected JComboBox<String> roleComboBox;
-
-
+	
 	public BaseUserFormFieldsPanel() { 
 		setLayout(new GridLayout(0, 2, 10, 10));
 		initializeComponents();
@@ -79,6 +80,11 @@ public class BaseUserFormFieldsPanel extends JPanel {
 		add(cityLabel);
 		add(cityTextField);
 
+		dateBirthDateLabel = new JLabel("Date Birthdate:");
+		dateBirthDateTextField = new JTextField();
+		add(dateBirthDateLabel);
+		add(dateBirthDateTextField);
+		
 		String[] userRoles = new String[]{
 				UserRole.ADMIN.getDisplayName(), 
 				UserRole.PLAYER.getDisplayName(), 
@@ -165,6 +171,14 @@ public class BaseUserFormFieldsPanel extends JPanel {
 		this.roleLabel = roleLabel;
 	}
 
+	public JLabel getDateBirthDateLabel() {
+		return dateBirthDateLabel;
+	}
+
+	public void setDateBirthDateLabel(JLabel dateBirthDateLabel) {
+		this.dateBirthDateLabel = dateBirthDateLabel;
+	}
+
 	public JLabel getFormTitleLabel() {
 		return formTitleLabel;
 	}
@@ -203,6 +217,14 @@ public class BaseUserFormFieldsPanel extends JPanel {
 
 	public void setEmailTextField(JTextField emailTextField) {
 		this.emailTextField = emailTextField;
+	}
+
+	public JTextField getDateBirthDateTextField() {
+		return dateBirthDateTextField;
+	}
+
+	public void setDateBirthDateTextField(JTextField dateBirthDateTextField) {
+		this.dateBirthDateTextField = dateBirthDateTextField;
 	}
 
 	public JPasswordField getPasswordTextField() {

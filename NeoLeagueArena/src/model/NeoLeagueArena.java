@@ -245,6 +245,38 @@ public class NeoLeagueArena {
 		return false;
 	}
 
+	
+	public boolean isPlayerAssignedToAnyTeam(Integer playerId) {
+		System.out.print("\nPLAYER ID: " + playerId + "\n");
+		
+	    for (TeamDTO teamDTO : getAllTeams()) {
+	        List<Integer> playerIds = teamDTO.getPlayerIds();
+			System.out.print("PLAYER IDS: " + teamDTO.getPlayerIds().toString() + "\n");
+			
+	        if (playerIds != null && playerIds.contains(playerId)) {
+	            return true;
+	        }
+	    }
+	    
+	    return false;
+	}
+
+	public boolean isPlayerInTeam(Integer playerId, Integer teamId) {
+		System.out.print("\nPLAYER ID: " + playerId + "\n");
+		System.out.print("\nTEAM  ID: " + playerId + "\n");
+		
+	    TeamDTO teamDTO =  new TeamDTO();
+	    teamDTO.setId(teamId);
+	
+	    TeamDTO foundTeamDTO = findTeam(teamDTO);
+	    
+	    if (foundTeamDTO != null && foundTeamDTO.getPlayerIds() != null) {
+			System.out.print("\nTEAM IDS : " + foundTeamDTO.getPlayerIds().toString()  + "\n");
+	        return foundTeamDTO.getPlayerIds().contains(playerId);
+	    }
+	    
+	    return false;
+	}
 
 	public void loadTeams() {
 		teamDAO.loadFromFile();
