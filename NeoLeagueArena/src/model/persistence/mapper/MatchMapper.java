@@ -9,8 +9,17 @@ import model.persistence.dto.MatchDTO;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase de utilidad para mapear entre objetos Match y MatchDTO.
+ */
 public class MatchMapper {
 
+    /**
+     * Convierte un objeto MatchDTO a un objeto Match.
+     *
+     * @param dto El objeto MatchDTO a convertir.
+     * @return El objeto Match convertido, o null si el DTO es null.
+     */
     public static Match convertMatchDTOToMatch(MatchDTO dto) {
         if (dto == null) return null;
 
@@ -43,6 +52,12 @@ public class MatchMapper {
         );
     }
 
+    /**
+     * Convierte un objeto Match a un objeto MatchDTO.
+     *
+     * @param match El objeto Match a convertir.
+     * @return El objeto MatchDTO convertido, o null si el Match es null.
+     */
     public static MatchDTO convertMatchToMatchDTO(Match match) {
         if (match == null) return null;
 
@@ -79,6 +94,12 @@ public class MatchMapper {
         return dto;
     }
 
+    /**
+     * Convierte una lista de objetos Match a una lista de objetos MatchDTO.
+     *
+     * @param matches La lista de objetos Match a convertir.
+     * @return La lista de objetos MatchDTO convertidos.
+     */
     public static List<MatchDTO> convertMatchListToMatchDTOList(List<Match> matches) {
         List<MatchDTO> dtos = new ArrayList<>();
 
@@ -91,6 +112,12 @@ public class MatchMapper {
         return dtos;
     }
 
+    /**
+     * Convierte una lista de objetos MatchDTO a una lista de objetos Match.
+     *
+     * @param dtos La lista de objetos MatchDTO a convertir.
+     * @return La lista de objetos Match convertidos.
+     */
     public static List<Match> convertMatchDTOListToMatchList(List<MatchDTO> dtos) {
         List<Match> matches = new ArrayList<>();
 
@@ -102,5 +129,4 @@ public class MatchMapper {
 
         return matches;
     }
-    
 }

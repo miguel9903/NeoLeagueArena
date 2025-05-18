@@ -22,12 +22,23 @@ import model.persistence.mapper.PlayerMapper;
 import model.persistence.mapper.TeamMapper;
 import model.persistence.mapper.GameMapper;
 
+/**
+ * Clase para gestionar la lectura y escritura de objetos en archivos.
+ * Permite manejar diferentes tipos de objetos como Admin, Coach, Player, Team y Game.
+ *
+ * @param <T> El tipo de objeto que se gestionará.
+ */
 public class FileManager<T> {
 
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
     private File fileLocation;
 
+    /**
+     * Constructor para inicializar el FileManager con una ruta de archivo específica.
+     *
+     * @param filePath La ruta del archivo donde se leerán o escribirán los objetos.
+     */
     public FileManager(String filePath) {
         this.fileLocation = new File(filePath);
 
@@ -45,6 +56,12 @@ public class FileManager<T> {
         }
     }
 
+    /**
+     * Escribe una lista de objetos en el archivo.
+     *
+     * @param objects   La lista de objetos a escribir en el archivo.
+     * @param className La clase de los objetos para determinar el tipo de conversión.
+     */
     public void writeToFile(ArrayList<T> objects, Class<T> className) {
         try {
             outputStream = new ObjectOutputStream(new FileOutputStream(fileLocation));
@@ -85,6 +102,12 @@ public class FileManager<T> {
         }
     }
 
+    /**
+     * Lee una lista de objetos desde el archivo.
+     *
+     * @param className La clase de los objetos para determinar el tipo de conversión.
+     * @return La lista de objetos leídos desde el archivo.
+     */
     public ArrayList<T> readFromFile(Class<T> className) {
         ArrayList<T> objects = null;
 
@@ -129,27 +152,58 @@ public class FileManager<T> {
         return objects;
     }
 
+    /**
+     * Obtiene el ObjectInputStream utilizado para leer desde el archivo.
+     *
+     * @return El ObjectInputStream.
+     */
     public ObjectInputStream getInputStream() {
         return inputStream;
     }
 
+    /**
+     * Establece el ObjectInputStream utilizado para leer desde el archivo.
+     *
+     * @param inputStream El nuevo ObjectInputStream.
+     */
     public void setInputStream(ObjectInputStream inputStream) {
         this.inputStream = inputStream;
     }
 
+    /**
+     * Obtiene el ObjectOutputStream utilizado para escribir en el archivo.
+     *
+     * @return El ObjectOutputStream.
+     */
     public ObjectOutputStream getOutputStream() {
         return outputStream;
     }
 
+    /**
+     * Establece el ObjectOutputStream utilizado para escribir en el archivo.
+     *
+     * @param outputStream El nuevo ObjectOutputStream.
+     */
     public void setOutputStream(ObjectOutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
+    /**
+     * Obtiene la ubicación del archivo.
+     *
+     * @return El archivo asociado a este FileManager.
+     */
     public File getFileLocation() {
         return fileLocation;
     }
 
+    /**
+     * Establece la ubicación del archivo.
+     *
+     * @param fileLocation El nuevo archivo asociado a este FileManager.
+     */
     public void setFileLocation(File fileLocation) {
         this.fileLocation = fileLocation;
     }
 }
+

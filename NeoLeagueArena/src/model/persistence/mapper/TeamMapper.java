@@ -8,8 +8,17 @@ import model.Player;
 import model.Coach;
 import model.persistence.dto.TeamDTO;
 
+/**
+ * Clase de utilidad para mapear entre objetos Team y TeamDTO.
+ */
 public class TeamMapper {
 
+    /**
+     * Convierte un objeto TeamDTO a un objeto Team.
+     *
+     * @param dto El objeto TeamDTO a convertir.
+     * @return El objeto Team convertido, o null si el DTO es null.
+     */
     public static Team convertTeamDTOToTeam(TeamDTO dto) {
         if (dto == null) return null;
 
@@ -29,7 +38,7 @@ public class TeamMapper {
         }
 
         List<Player> players = new ArrayList<>();
-        
+
         if (dto.getPlayerIds() != null) {
             for (Integer playerId : dto.getPlayerIds()) {
                 if (playerId != null) {
@@ -44,6 +53,12 @@ public class TeamMapper {
         return team;
     }
 
+    /**
+     * Convierte un objeto Team a un objeto TeamDTO.
+     *
+     * @param team El objeto Team a convertir.
+     * @return El objeto TeamDTO convertido, o null si el Team es null.
+     */
     public static TeamDTO convertTeamToTeamDTO(Team team) {
         if (team == null) return null;
 
@@ -54,14 +69,14 @@ public class TeamMapper {
         dto.setLogo(team.getLogo());
         dto.setScore(team.getScore());
         dto.setRanking(team.getRanking());
-        
+
         if (team.getCoach() != null) {
             dto.setCoachId(team.getCoach().getId());
             dto.setCoachName(team.getCoach().getFirstName());
         }
 
         List<Integer> playerIds = new ArrayList<>();
-        
+
         if (team.getPlayers() != null) {
             for (Player player : team.getPlayers()) {
                 if (player != null) {
@@ -74,6 +89,12 @@ public class TeamMapper {
         return dto;
     }
 
+    /**
+     * Convierte una lista de objetos TeamDTO a una lista de objetos Team.
+     *
+     * @param dtoList La lista de objetos TeamDTO a convertir.
+     * @return La lista de objetos Team convertidos.
+     */
     public static List<Team> convertTeamDTOListToTeamList(List<TeamDTO> dtoList) {
         List<Team> teams = new ArrayList<>();
         if (dtoList != null) {
@@ -84,6 +105,12 @@ public class TeamMapper {
         return teams;
     }
 
+    /**
+     * Convierte una lista de objetos Team a una lista de objetos TeamDTO.
+     *
+     * @param teamList La lista de objetos Team a convertir.
+     * @return La lista de objetos TeamDTO convertidos.
+     */
     public static List<TeamDTO> convertTeamListToTeamDTOList(List<Team> teamList) {
         List<TeamDTO> dtoList = new ArrayList<>();
         if (teamList != null) {
@@ -94,3 +121,4 @@ public class TeamMapper {
         return dtoList;
     }
 }
+

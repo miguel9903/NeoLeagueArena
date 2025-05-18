@@ -2,6 +2,9 @@ package model.persistence.dto;
 
 import java.io.Serializable;
 
+/**
+ * Clase DTO (Data Transfer Object) que representa a un usuario.
+ */
 public class UserDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -17,93 +20,209 @@ public class UserDTO implements Serializable {
     private String birthDate;
     private int age;
 
+    /**
+     * Constructor por defecto para crear una instancia de UserDTO.
+     */
     public UserDTO() { }
 
+    /**
+     * Autentica al usuario con el correo electrónico y la contraseña.
+     *
+     * @param email    El correo electrónico del usuario.
+     * @param password La contraseña del usuario.
+     * @return true si las credenciales son correctas, false en caso contrario.
+     */
     public boolean login(String email, String password) {
         return this.email.equals(email) && this.password.equals(password);
     }
 
-	public Integer getId() {
-		return id;
-	}
+    /**
+     * Obtiene el identificador único del usuario.
+     *
+     * @return El identificador único del usuario.
+     */
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    /**
+     * Establece el identificador único del usuario.
+     *
+     * @param id El nuevo identificador único del usuario.
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * Obtiene el nombre del usuario.
+     *
+     * @return El nombre del usuario.
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * Establece el nombre del usuario.
+     *
+     * @param firstName El nuevo nombre del usuario.
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * Obtiene el apellido del usuario.
+     *
+     * @return El apellido del usuario.
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * Establece el apellido del usuario.
+     *
+     * @param lastName El nuevo apellido del usuario.
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Obtiene el correo electrónico del usuario.
+     *
+     * @return El correo electrónico del usuario.
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Establece el correo electrónico del usuario.
+     *
+     * @param email El nuevo correo electrónico del usuario.
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    /**
+     * Obtiene la contraseña del usuario.
+     *
+     * @return La contraseña del usuario.
+     */
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    /**
+     * Establece la contraseña del usuario.
+     *
+     * @param password La nueva contraseña del usuario.
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    /**
+     * Obtiene el país del usuario.
+     *
+     * @return El país del usuario.
+     */
+    public String getCountry() {
+        return country;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    /**
+     * Establece el país del usuario.
+     *
+     * @param country El nuevo país del usuario.
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    /**
+     * Obtiene la ciudad del usuario.
+     *
+     * @return La ciudad del usuario.
+     */
+    public String getCity() {
+        return city;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    /**
+     * Establece la ciudad del usuario.
+     *
+     * @param city La nueva ciudad del usuario.
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public String getRole() {
-		return role;
-	}
+    /**
+     * Obtiene el rol del usuario.
+     *
+     * @return El rol del usuario.
+     */
+    public String getRole() {
+        return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    /**
+     * Establece el rol del usuario.
+     *
+     * @param role El nuevo rol del usuario.
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-	public String getBirthDate() {
-		return birthDate;
-	}
+    /**
+     * Obtiene la fecha de nacimiento del usuario.
+     *
+     * @return La fecha de nacimiento del usuario.
+     */
+    public String getBirthDate() {
+        return birthDate;
+    }
 
-	public void setBirthDate(String birthDate) {
-		this.birthDate = birthDate;
-	}
+    /**
+     * Establece la fecha de nacimiento del usuario.
+     *
+     * @param birthDate La nueva fecha de nacimiento del usuario.
+     */
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    /**
+     * Obtiene el serialVersionUID.
+     *
+     * @return El serialVersionUID.
+     */
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
-	public int getAge() {
-		return age;
-	}
+    /**
+     * Obtiene la edad del usuario.
+     *
+     * @return La edad del usuario.
+     */
+    public int getAge() {
+        return age;
+    }
 
-	public void setAge(int age) {
-		this.age = age;
-	}
+    /**
+     * Establece la edad del usuario.
+     *
+     * @param age La nueva edad del usuario.
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
 }
+

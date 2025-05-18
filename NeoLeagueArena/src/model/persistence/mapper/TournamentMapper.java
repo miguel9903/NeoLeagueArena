@@ -12,8 +12,17 @@ import model.persistence.dto.TournamentDTO;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase de utilidad para mapear entre objetos Tournament y TournamentDTO.
+ */
 public class TournamentMapper {
 
+    /**
+     * Convierte un objeto TournamentDTO a un objeto Tournament.
+     *
+     * @param dto El objeto TournamentDTO a convertir.
+     * @return El objeto Tournament convertido, o null si el DTO es null.
+     */
     public static Tournament convertTournamentDTOToTournament(TournamentDTO dto) {
         if (dto == null) return null;
 
@@ -33,7 +42,7 @@ public class TournamentMapper {
         tournament.setTeams(teams);
 
         List<Match> matches = new ArrayList<>();
-        
+
         if (dto.getMatchIds() != null) {
             for (Integer matchId : dto.getMatchIds()) {
                 if (matchId != null) {
@@ -59,6 +68,12 @@ public class TournamentMapper {
         return tournament;
     }
 
+    /**
+     * Convierte un objeto Tournament a un objeto TournamentDTO.
+     *
+     * @param tournament El objeto Tournament a convertir.
+     * @return El objeto TournamentDTO convertido, o null si el Tournament es null.
+     */
     public static TournamentDTO convertTournamentToTournamentDTO(Tournament tournament) {
         if (tournament == null) return null;
 
@@ -99,27 +114,39 @@ public class TournamentMapper {
         return dto;
     }
 
+    /**
+     * Convierte una lista de objetos TournamentDTO a una lista de objetos Tournament.
+     *
+     * @param dtoList La lista de objetos TournamentDTO a convertir.
+     * @return La lista de objetos Tournament convertidos.
+     */
     public static List<Tournament> convertTournamentDTOListToTournamentList(List<TournamentDTO> dtoList) {
         List<Tournament> tournaments = new ArrayList<>();
-        
+
         if (dtoList != null) {
             for (TournamentDTO dto : dtoList) {
                 tournaments.add(convertTournamentDTOToTournament(dto));
             }
         }
-        
+
         return tournaments;
     }
 
+    /**
+     * Convierte una lista de objetos Tournament a una lista de objetos TournamentDTO.
+     *
+     * @param tournamentList La lista de objetos Tournament a convertir.
+     * @return La lista de objetos TournamentDTO convertidos.
+     */
     public static List<TournamentDTO> convertTournamentListToTournamentDTOList(List<Tournament> tournamentList) {
         List<TournamentDTO> dtoList = new ArrayList<>();
-        
+
         if (tournamentList != null) {
             for (Tournament tournament : tournamentList) {
                 dtoList.add(convertTournamentToTournamentDTO(tournament));
             }
         }
-        
+
         return dtoList;
     }
 }
