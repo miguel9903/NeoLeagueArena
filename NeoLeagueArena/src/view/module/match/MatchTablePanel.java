@@ -1,4 +1,4 @@
-package view.module.team;
+package view.module.match;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,13 +11,13 @@ import javax.swing.table.DefaultTableModel;
 
 import view.shared.FormHeaderPanel;
 
-public class TeamTablePanel extends JPanel {
+public class MatchTablePanel extends JPanel {
 	
     private JTable playersTable;
     private DefaultTableModel tableModel;
 	private FormHeaderPanel formHeaderPanel;
 
-    public TeamTablePanel() {
+    public MatchTablePanel() {
     	setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		initializeComponents();

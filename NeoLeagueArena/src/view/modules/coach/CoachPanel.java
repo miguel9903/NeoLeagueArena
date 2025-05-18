@@ -32,5 +32,31 @@ public class CoachPanel extends JPanel {
 		tabs.addTab("List", coachTablePanel);
 
 		add(tabs);
+	}
+
+	public JTabbedPane getTabs() {
+		return tabs;
+	}
+
+	public void setTabs(JTabbedPane tabs) {
+		this.tabs = tabs;
+	}
+
+	public CoachFormPanel getCoachFormPanel() {
+		return coachFormPanel;
+	}
+
+	public void setCoachFormPanel(CoachFormPanel coachFormPanel) {
+		this.coachFormPanel = coachFormPanel;
+	}
+
+	public CoachTablePanel getCoachTablePanel() {
+		return coachTablePanel;
+	}
+
+	public void setCoachTablePanel(CoachTablePanel coachTablePanel) {
+		this.coachTablePanel = coachTablePanel;
 	}	
+	
+	
 }

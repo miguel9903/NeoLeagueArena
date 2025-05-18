@@ -1,4 +1,4 @@
-package view.module.team;
+package view.module.tournament;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -12,13 +12,13 @@ import view.shared.FormHeaderPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-public class TeamFormPanel extends JPanel {
+public class TournamentFormPanel extends JPanel {
 
 	private FormHeaderPanel formHeaderPanel;
-	private TeamFormFieldsPanel teamFormFieldsPanel;
+	private TournamentFormFieldsPanel teamFormFieldsPanel;
 	private FormFooterPanel formFooterPanel;
 
-	public TeamFormPanel() {
+	public TournamentFormPanel() {
 		setLayout(new BorderLayout()); 
 		initializeComponents(); 
 		setupFormControls();
@@ -28,7 +28,7 @@ public class TeamFormPanel extends JPanel {
 		formHeaderPanel = new FormHeaderPanel();
 		formHeaderPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 
-		teamFormFieldsPanel = new TeamFormFieldsPanel();
+		teamFormFieldsPanel = new TournamentFormFieldsPanel();
 		teamFormFieldsPanel.setBorder(new EmptyBorder(0, 20, 0, 20)); 
 
 		formFooterPanel = new FormFooterPanel();
@@ -41,7 +41,7 @@ public class TeamFormPanel extends JPanel {
 	}
 
 	public void setupFormControls() {
-		formHeaderPanel.getFormTitleLabel().setText("Manage Teams");
+		formHeaderPanel.getFormTitleLabel().setText("Manage Tournaments");
 		
 		formHeaderPanel.setSearchButtonText("Search");
 		formHeaderPanel.setSearchButtonActionCommand(ButtonActionCommands.ADMIN_SEARCH_TEAM_ACTION_COMMAND);
@@ -67,11 +67,11 @@ public class TeamFormPanel extends JPanel {
 		this.formHeaderPanel = formHeaderPanel;
 	}
 
-	public TeamFormFieldsPanel getTeamFormFieldsPanel() {
+	public TournamentFormFieldsPanel getTeamFormFieldsPanel() {
 		return teamFormFieldsPanel;
 	}
 
-	public void setTeamFormFieldsPanel(TeamFormFieldsPanel teamFormFieldsPanel) {
+	public void setTeamFormFieldsPanel(TournamentFormFieldsPanel teamFormFieldsPanel) {
 		this.teamFormFieldsPanel = teamFormFieldsPanel;
 	}
 

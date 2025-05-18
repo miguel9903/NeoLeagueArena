@@ -51,6 +51,10 @@ public class FormHeaderPanel extends JPanel {
 		add(searchPanel, BorderLayout.CENTER);
 	}
 
+	public void resetFields() {
+		searchTextField.setText("");
+	}
+	
 	public void setSearchButtonActionCommand(String command) {
 		searchButton.setActionCommand(command);
 	}

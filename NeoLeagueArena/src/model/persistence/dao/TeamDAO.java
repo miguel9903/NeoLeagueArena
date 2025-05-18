@@ -29,35 +29,6 @@ public class TeamDAO implements InterfaceDAO<Team> {
 		fileManager.writeToFile(teams, Team.class);
 	}
 
-	private void loadInitialData() {
-		Team team1 = new Team(
-				1, 
-				"Shadow Strikers", 
-				"Equipo agresivo especializado en shooters, con tácticas rápidas y precisión mortal en cada partida."
-				);
-		Team team2 = new Team(
-				2, 
-				"Pixel Phantoms", 
-				"Maestros en juegos estratégicos y tácticos, con una coordinación impecable y gran adaptabilidad en la escena coreana."
-				);
-		Team team3 = new Team(
-				3, 
-				"Quantum Blitz", 
-				"Conocidos por su velocidad y trabajo en equipo, destacan en competencias internacionales de eSports con gran éxito."
-				);
-		Team team4 = new Team(
-				4, 
-				"Nebula Ninjas", 
-				"Equipo innovador y versátil, reconocidos por su creatividad y estrategias sorprendentes en torneos globales."
-				);
-
-		teams.add(team1);
-		teams.add(team2);
-		teams.add(team3);
-		teams.add(team4);
-	}
-
-
 	@Override
 	public ArrayList<Team> getAll() {
 		return new ArrayList<>(teams);

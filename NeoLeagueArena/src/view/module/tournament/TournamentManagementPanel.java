@@ -1,4 +1,4 @@
-package view.module.team;
+package view.module.tournament;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,15 +8,17 @@ import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
 
 import utils.Colors;
+import view.module.team.TeamFormPanel;
+import view.module.team.TeamPlayerAssignmentPanel;
 
-public class TeamManagementPanel extends JPanel {
+public class TournamentManagementPanel extends JPanel {
 
     private JTabbedPane tabs;
     private TeamFormPanel teamFormPanel;
     private TeamPlayerAssignmentPanel teamPlayerAssignmentPanel;
-    private TeamTablePanel teamTablePanel;
+    private TournamentTablePanel tournamentTablePanel;
     
-    public TeamManagementPanel() {
+    public TournamentManagementPanel() {
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(Color.decode(Colors.LIGHT_GRAY));
         initializeComponents();
@@ -33,9 +35,9 @@ public class TeamManagementPanel extends JPanel {
         teamPlayerAssignmentPanel.setPreferredSize(new Dimension(500, 500));
         tabs.addTab("Assign Players", teamPlayerAssignmentPanel);
         
-        teamTablePanel = new TeamTablePanel();
-        teamTablePanel.setPreferredSize(new Dimension(500, 500));
-        tabs.addTab("List Teams", teamTablePanel);
+        tournamentTablePanel = new TournamentTablePanel();
+        tournamentTablePanel.setPreferredSize(new Dimension(500, 500));
+        tabs.addTab("List Tournaments", tournamentTablePanel);
         
         add(tabs);
     }
@@ -64,12 +66,12 @@ public class TeamManagementPanel extends JPanel {
 		this.teamPlayerAssignmentPanel = teamPlayerAssignmentPanel;
 	}
 
-	public TeamTablePanel getTeamTablePanel() {
-		return teamTablePanel;
+	public TournamentTablePanel getTournamentTablePanel() {
+		return tournamentTablePanel;
 	}
 
-	public void setTeamTablePanel(TeamTablePanel teamTablePanel) {
-		this.teamTablePanel = teamTablePanel;
+	public void setTournamentTablePanel(TournamentTablePanel tournamentTablePanel) {
+		this.tournamentTablePanel = tournamentTablePanel;
 	}
-
+	
 }

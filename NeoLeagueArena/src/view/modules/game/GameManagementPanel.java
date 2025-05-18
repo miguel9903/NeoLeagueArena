@@ -1,4 +1,4 @@
-package view.module.team;
+package view.modules.game;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,14 +9,14 @@ import javax.swing.border.EmptyBorder;
 
 import utils.Colors;
 
-public class TeamManagementPanel extends JPanel {
+public class GameManagementPanel extends JPanel {
 
     private JTabbedPane tabs;
-    private TeamFormPanel teamFormPanel;
+    private GameFormPanel gameFormPanel;
     private TeamPlayerAssignmentPanel teamPlayerAssignmentPanel;
-    private TeamTablePanel teamTablePanel;
+    private GameTablePanel gameTablePanel;
     
-    public TeamManagementPanel() {
+    public GameManagementPanel() {
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(Color.decode(Colors.LIGHT_GRAY));
         initializeComponents();
@@ -25,17 +25,17 @@ public class TeamManagementPanel extends JPanel {
     private void initializeComponents() {
         tabs = new JTabbedPane();
 
-        teamFormPanel = new TeamFormPanel();
-        teamFormPanel.setPreferredSize(new Dimension(550, 500));
-        tabs.addTab("Manage Teams", teamFormPanel);
+        gameFormPanel = new GameFormPanel();
+        gameFormPanel.setPreferredSize(new Dimension(550, 500));
+        tabs.addTab("Manage Games", gameFormPanel);
 
         teamPlayerAssignmentPanel = new TeamPlayerAssignmentPanel();
         teamPlayerAssignmentPanel.setPreferredSize(new Dimension(500, 500));
         tabs.addTab("Assign Players", teamPlayerAssignmentPanel);
         
-        teamTablePanel = new TeamTablePanel();
-        teamTablePanel.setPreferredSize(new Dimension(500, 500));
-        tabs.addTab("List Teams", teamTablePanel);
+        gameTablePanel = new GameTablePanel();
+        gameTablePanel.setPreferredSize(new Dimension(500, 500));
+        tabs.addTab("List Games", gameTablePanel);
         
         add(tabs);
     }
@@ -48,12 +48,12 @@ public class TeamManagementPanel extends JPanel {
 		this.tabs = tabs;
 	}
 
-	public TeamFormPanel getTeamFormPanel() {
-		return teamFormPanel;
+	public GameFormPanel getGameFormPanel() {
+		return gameFormPanel;
 	}
 
-	public void setTeamFormPanel(TeamFormPanel teamFormPanel) {
-		this.teamFormPanel = teamFormPanel;
+	public void setGameFormPanel(GameFormPanel gameFormPanel) {
+		this.gameFormPanel = gameFormPanel;
 	}
 
 	public TeamPlayerAssignmentPanel getTeamPlayerAssignmentPanel() {
@@ -64,12 +64,12 @@ public class TeamManagementPanel extends JPanel {
 		this.teamPlayerAssignmentPanel = teamPlayerAssignmentPanel;
 	}
 
-	public TeamTablePanel getTeamTablePanel() {
-		return teamTablePanel;
+	public GameTablePanel getGameTablePanel() {
+		return gameTablePanel;
 	}
 
-	public void setTeamTablePanel(TeamTablePanel teamTablePanel) {
-		this.teamTablePanel = teamTablePanel;
+	public void setGameTablePanel(GameTablePanel gameTablePanel) {
+		this.gameTablePanel = gameTablePanel;
 	}
 
 }

@@ -30,9 +30,9 @@ public class ButtonActionCommands {
     public static final String ADMIN_TEAM_DETAIL_ACTION_COMMAND = "ADMIN_TEAM_DETAIL";
     public static final String ADMIN_ADD_PLAYERS_TO_TEAM_ACTION_COMMAND = "ADD_PLAYERS_TO_TEAM ";
     public static final String ADMIN_DELETE_PLAYERS_TO_TEAM_ACTION_COMMAND = "DELETE_PLAYERS_TO_TEAM ";
-    public static final String ADMIN_UPDATE_TEAM_ACTION_COMMAND = "UPDATE_TEAM ";
-    public static final String ADMIN_DELETE_TEAM_ACTION_COMMAND = "DELETE_TEAM ";
-    public static final String ADMIN_CREATE_TEAM_ACTION_COMMAND = "CREATE_TEAM ";
+    public static final String ADMIN_UPDATE_TEAM_ACTION_COMMAND = "UPDATE_TEAM";
+    public static final String ADMIN_DELETE_TEAM_ACTION_COMMAND = "DELETE_TEAM";
+    public static final String ADMIN_CREATE_TEAM_ACTION_COMMAND = "CREATE_TEAM";
     public static final String ADMIN_RESET_TEAM_ACTION_COMMAND = "RESET_TEAM";
 
 

@@ -1,4 +1,4 @@
-package view.module.team;
+package view.modules.admin;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,14 +9,14 @@ import javax.swing.border.EmptyBorder;
 
 import utils.Colors;
 
-public class TeamManagementPanel extends JPanel {
+public class AdminManagementPanel extends JPanel {
 
     private JTabbedPane tabs;
-    private TeamFormPanel teamFormPanel;
+    private AdminFormPanel teamFormPanel;
     private TeamPlayerAssignmentPanel teamPlayerAssignmentPanel;
-    private TeamTablePanel teamTablePanel;
+    private AdminTablePanel teamTablePanel;
     
-    public TeamManagementPanel() {
+    public AdminManagementPanel() {
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(Color.decode(Colors.LIGHT_GRAY));
         initializeComponents();
@@ -25,17 +25,17 @@ public class TeamManagementPanel extends JPanel {
     private void initializeComponents() {
         tabs = new JTabbedPane();
 
-        teamFormPanel = new TeamFormPanel();
+        teamFormPanel = new AdminFormPanel();
         teamFormPanel.setPreferredSize(new Dimension(550, 500));
-        tabs.addTab("Manage Teams", teamFormPanel);
+        tabs.addTab("Manage Admins", teamFormPanel);
 
         teamPlayerAssignmentPanel = new TeamPlayerAssignmentPanel();
         teamPlayerAssignmentPanel.setPreferredSize(new Dimension(500, 500));
         tabs.addTab("Assign Players", teamPlayerAssignmentPanel);
         
-        teamTablePanel = new TeamTablePanel();
+        teamTablePanel = new AdminTablePanel();
         teamTablePanel.setPreferredSize(new Dimension(500, 500));
-        tabs.addTab("List Teams", teamTablePanel);
+        tabs.addTab("List Admins", teamTablePanel);
         
         add(tabs);
     }
@@ -48,11 +48,11 @@ public class TeamManagementPanel extends JPanel {
 		this.tabs = tabs;
 	}
 
-	public TeamFormPanel getTeamFormPanel() {
+	public AdminFormPanel getTeamFormPanel() {
 		return teamFormPanel;
 	}
 
-	public void setTeamFormPanel(TeamFormPanel teamFormPanel) {
+	public void setTeamFormPanel(AdminFormPanel teamFormPanel) {
 		this.teamFormPanel = teamFormPanel;
 	}
 
@@ -64,11 +64,11 @@ public class TeamManagementPanel extends JPanel {
 		this.teamPlayerAssignmentPanel = teamPlayerAssignmentPanel;
 	}
 
-	public TeamTablePanel getTeamTablePanel() {
+	public AdminTablePanel getTeamTablePanel() {
 		return teamTablePanel;
 	}
 
-	public void setTeamTablePanel(TeamTablePanel teamTablePanel) {
+	public void setTeamTablePanel(AdminTablePanel teamTablePanel) {
 		this.teamTablePanel = teamTablePanel;
 	}
 

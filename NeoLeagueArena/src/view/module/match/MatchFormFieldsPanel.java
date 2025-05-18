@@ -1,4 +1,4 @@
-package view.module.tournament;
+package view.module.match;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -14,7 +14,7 @@ import model.persistence.dto.CoachDTO;
 
 import javax.swing.JScrollPane;
 
-public class TournamentFormFieldsPanel extends JPanel {
+public class MatchFormFieldsPanel extends JPanel {
 
 	private JLabel idLabel;
 	private JLabel nameLabel;
@@ -35,7 +35,7 @@ public class TournamentFormFieldsPanel extends JPanel {
 	private JComboBox<String> coachComboBox;
 	private JComboBox<String> playersComboBox;
 
-	public TournamentFormFieldsPanel() {
+	public MatchFormFieldsPanel() {
 		setLayout(new GridLayout(7, 2, 10, 10));
 		initializeComponents();
 	}

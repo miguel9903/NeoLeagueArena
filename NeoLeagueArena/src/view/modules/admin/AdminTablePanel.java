@@ -1,4 +1,4 @@
-package view.module.tournament;
+package view.modules.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,20 +11,20 @@ import javax.swing.table.DefaultTableModel;
 
 import view.shared.FormHeaderPanel;
 
-public class CoachTablePanel extends JPanel {
+public class AdminTablePanel extends JPanel {
 	
     private JTable playersTable;
     private DefaultTableModel tableModel;
 	private FormHeaderPanel formHeaderPanel;
 
-    public CoachTablePanel() {
+    public AdminTablePanel() {
     	setLayout(new BorderLayout());
 		setBackground(Color.WHITE);
 		initializeComponents();
 		setupFormControls();
     }
     
-    public void  initializeComponents() {
+    public void initializeComponents() {
 		formHeaderPanel = new FormHeaderPanel();
 		formHeaderPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
     	
@@ -58,6 +58,6 @@ public class CoachTablePanel extends JPanel {
     }
     
     public void setupFormControls() {
-		formHeaderPanel.getFormTitleLabel().setText("List Coaches");
+		formHeaderPanel.getFormTitleLabel().setText("List Admins");
 	}
 }

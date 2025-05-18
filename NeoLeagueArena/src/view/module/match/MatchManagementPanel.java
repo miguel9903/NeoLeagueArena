@@ -1,4 +1,4 @@
-package view.module.team;
+package view.module.match;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,14 +9,14 @@ import javax.swing.border.EmptyBorder;
 
 import utils.Colors;
 
-public class TeamManagementPanel extends JPanel {
+public class MatchManagementPanel extends JPanel {
 
     private JTabbedPane tabs;
-    private TeamFormPanel teamFormPanel;
+    private MatchFormPanel matchFormPanel;
     private TeamPlayerAssignmentPanel teamPlayerAssignmentPanel;
-    private TeamTablePanel teamTablePanel;
+    private MatchTablePanel matchTablePanel;
     
-    public TeamManagementPanel() {
+    public MatchManagementPanel() {
         setBorder(new EmptyBorder(10, 10, 10, 10));
         setBackground(Color.decode(Colors.LIGHT_GRAY));
         initializeComponents();
@@ -25,17 +25,17 @@ public class TeamManagementPanel extends JPanel {
     private void initializeComponents() {
         tabs = new JTabbedPane();
 
-        teamFormPanel = new TeamFormPanel();
-        teamFormPanel.setPreferredSize(new Dimension(550, 500));
-        tabs.addTab("Manage Teams", teamFormPanel);
+        matchFormPanel = new MatchFormPanel();
+        matchFormPanel.setPreferredSize(new Dimension(550, 500));
+        tabs.addTab("Manage Matches", matchFormPanel);
 
         teamPlayerAssignmentPanel = new TeamPlayerAssignmentPanel();
         teamPlayerAssignmentPanel.setPreferredSize(new Dimension(500, 500));
         tabs.addTab("Assign Players", teamPlayerAssignmentPanel);
         
-        teamTablePanel = new TeamTablePanel();
-        teamTablePanel.setPreferredSize(new Dimension(500, 500));
-        tabs.addTab("List Teams", teamTablePanel);
+        matchTablePanel = new MatchTablePanel();
+        matchTablePanel.setPreferredSize(new Dimension(500, 500));
+        tabs.addTab("List Matches", matchTablePanel);
         
         add(tabs);
     }
@@ -48,12 +48,12 @@ public class TeamManagementPanel extends JPanel {
 		this.tabs = tabs;
 	}
 
-	public TeamFormPanel getTeamFormPanel() {
-		return teamFormPanel;
+	public MatchFormPanel getMatchFormPanel() {
+		return matchFormPanel;
 	}
 
-	public void setTeamFormPanel(TeamFormPanel teamFormPanel) {
-		this.teamFormPanel = teamFormPanel;
+	public void setMatchFormPanel(MatchFormPanel matchFormPanel) {
+		this.matchFormPanel = matchFormPanel;
 	}
 
 	public TeamPlayerAssignmentPanel getTeamPlayerAssignmentPanel() {
@@ -64,12 +64,13 @@ public class TeamManagementPanel extends JPanel {
 		this.teamPlayerAssignmentPanel = teamPlayerAssignmentPanel;
 	}
 
-	public TeamTablePanel getTeamTablePanel() {
-		return teamTablePanel;
+	public MatchTablePanel getMatchTablePanel() {
+		return matchTablePanel;
 	}
 
-	public void setTeamTablePanel(TeamTablePanel teamTablePanel) {
-		this.teamTablePanel = teamTablePanel;
+	public void setMatchTablePanel(MatchTablePanel matchTablePanel) {
+		this.matchTablePanel = matchTablePanel;
 	}
+
 
 }

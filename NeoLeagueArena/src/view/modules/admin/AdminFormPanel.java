@@ -1,4 +1,4 @@
-package view.module.team;
+package view.modules.admin;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -6,19 +6,20 @@ import javax.swing.border.EmptyBorder;
 
 import utils.ButtonActionCommands;
 import utils.Colors;
+import view.shared.BaseUserFormFieldsPanel;
 import view.shared.FormFooterPanel;
 import view.shared.FormHeaderPanel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 
-public class TeamFormPanel extends JPanel {
+public class AdminFormPanel extends JPanel {
 
 	private FormHeaderPanel formHeaderPanel;
-	private TeamFormFieldsPanel teamFormFieldsPanel;
+	private BaseUserFormFieldsPanel adminFormFieldsPanel;
 	private FormFooterPanel formFooterPanel;
 
-	public TeamFormPanel() {
+	public AdminFormPanel() {
 		setLayout(new BorderLayout()); 
 		initializeComponents(); 
 		setupFormControls();
@@ -28,20 +29,20 @@ public class TeamFormPanel extends JPanel {
 		formHeaderPanel = new FormHeaderPanel();
 		formHeaderPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 
-		teamFormFieldsPanel = new TeamFormFieldsPanel();
-		teamFormFieldsPanel.setBorder(new EmptyBorder(0, 20, 0, 20)); 
+		adminFormFieldsPanel = new BaseUserFormFieldsPanel();
+		adminFormFieldsPanel.setBorder(new EmptyBorder(0, 20, 0, 20)); 
 
 		formFooterPanel = new FormFooterPanel();
 		formFooterPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
 		formFooterPanel.setBackground(Color.decode(Colors.MEDIUM_GRAY));
 
 		add(formHeaderPanel, BorderLayout.NORTH); 
-		add(teamFormFieldsPanel, BorderLayout.CENTER);
+		add(adminFormFieldsPanel, BorderLayout.CENTER);
 		add(formFooterPanel, BorderLayout.SOUTH); 
 	}
 
 	public void setupFormControls() {
-		formHeaderPanel.getFormTitleLabel().setText("Manage Teams");
+		formHeaderPanel.getFormTitleLabel().setText("Manage Admins");
 		
 		formHeaderPanel.setSearchButtonText("Search");
 		formHeaderPanel.setSearchButtonActionCommand(ButtonActionCommands.ADMIN_SEARCH_TEAM_ACTION_COMMAND);
@@ -58,7 +59,7 @@ public class TeamFormPanel extends JPanel {
 		formFooterPanel.setQuaternaryButtonText("RESET DATA");
 		formFooterPanel.setQuaternaryButtonActionCommand(ButtonActionCommands.ADMIN_RESET_TEAM_ACTION_COMMAND);
 	}
-	
+
 	public FormHeaderPanel getFormHeaderPanel() {
 		return formHeaderPanel;
 	}
@@ -67,12 +68,12 @@ public class TeamFormPanel extends JPanel {
 		this.formHeaderPanel = formHeaderPanel;
 	}
 
-	public TeamFormFieldsPanel getTeamFormFieldsPanel() {
-		return teamFormFieldsPanel;
+	public BaseUserFormFieldsPanel getAdminFormFieldsPanel() {
+		return adminFormFieldsPanel;
 	}
 
-	public void setTeamFormFieldsPanel(TeamFormFieldsPanel teamFormFieldsPanel) {
-		this.teamFormFieldsPanel = teamFormFieldsPanel;
+	public void setAdminFormFieldsPanel(BaseUserFormFieldsPanel adminFormFieldsPanel) {
+		this.adminFormFieldsPanel = adminFormFieldsPanel;
 	}
 
 	public FormFooterPanel getFormFooterPanel() {
@@ -82,6 +83,5 @@ public class TeamFormPanel extends JPanel {
 	public void setFormFooterPanel(FormFooterPanel formFooterPanel) {
 		this.formFooterPanel = formFooterPanel;
 	}
-
-	
+		
 }
